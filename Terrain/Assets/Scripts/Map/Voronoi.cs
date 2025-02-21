@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Voronoi : MonoBehaviour
 {
-    [SerializeField] private int seed;
+    public int seed;
     public MapGenerate mapGenerate;
     [Header("Map")]
     public int width = 256;
@@ -18,19 +18,6 @@ public class Voronoi : MonoBehaviour
 
     private Renderer quadRenderer;
     private Dictionary<Vector2Int, int> cellIndexCache = new Dictionary<Vector2Int, int>();
-    void Update()
-    {
-        Clickmouse();
-    }
-    private void Clickmouse()
-    {
-        if(Input .GetMouseButtonDown(0))
-        {
-           
-            seed = Random.Range(0, int.MaxValue);
-            GenerateTexture();
-        }
-    }
     public void GenerateTexture()
     {
         int[,] voronoiMap = GenerateVoronoi(width, height);

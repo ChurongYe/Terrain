@@ -1,47 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class NPCNavigation : MonoBehaviour
 {
-    public Transform village; // 村庄的位置
-    public Transform farmland; // 农田的位置
-    public float movementSpeed = 3.5f; // NPC的移动速度
-    public float stoppingDistance = 0.5f; // 到达目的地的距离阈值
-    private NavMeshAgent agent; // 用于控制NPC的NavMeshAgent
+    public Transform goal;  
+    private NavMeshAgent agent;
 
+    public LayerMask groundLayer; 
+    public float groundRaycastHeight = 100f;
+
+    public float normalSpeed = 3.5f;
+    public float linkSpeed = 0.6f; // 通过Link时的速度
+    public float normalAcceleration = 8f;
+    public float linkAcceleration = 2f;
     void Start()
     {
-        // 获取 NavMeshAgent 组件
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = movementSpeed;
-        agent.stoppingDistance = stoppingDistance;
+        agent.speed = normalSpeed;
+        agent.acceleration = normalAcceleration;
+        if (agent == null)
+        {
+            return;
+        }
 
-        // 开始从村庄到农田的路径
-        MoveToDestination(village.position); // 初始从村庄开始
+        if (goal != null)
+        {
+            Vector3 adjustedGoalPosition = GetGroundHeight(goal.position);
+            agent.destination = adjustedGoalPosition;
+        }
+ 
     }
 
     void Update()
     {
-        // 如果NPC到达目的地，改变目的地为农田
-        if (!agent.pathPending && agent.remainingDistance <= stoppingDistance)
+        if (goal != null)
         {
-            if (agent.destination == village.position)
+            Vector3 adjustedGoalPosition = GetGroundHeight(goal.position);
+
+            if (agent.destination != adjustedGoalPosition)
             {
-                // NPC到达村庄后，开始向农田移动
-                MoveToDestination(farmland.position);
+                agent.destination = adjustedGoalPosition;
             }
         }
-    }
-
-    // 设置NPC的目标目的地
-    void MoveToDestination(Vector3 targetPosition)
-    {
-        if (targetPosition != Vector3.zero)
+        if (agent.isOnOffMeshLink)
         {
-            agent.SetDestination(targetPosition);
+            agent.speed = linkSpeed;
+            agent.acceleration = linkAcceleration;
+        }
+        else
+        {
+            agent.speed = normalSpeed;
+            agent.acceleration = normalAcceleration;
         }
     }
 
+    Vector3 GetGroundHeight(Vector3 position)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(position + Vector3.up * groundRaycastHeight, Vector3.down, out hit, groundRaycastHeight * 2, groundLayer))
+        {
+            return hit.point; 
+        }
+        return position; 
+    }
 }
+
