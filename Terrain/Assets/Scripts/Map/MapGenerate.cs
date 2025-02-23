@@ -92,7 +92,7 @@ public class MapGenerate : MonoBehaviour
 
                     GameObject spawnedPrefab = Instantiate(prefabToInstantiate, new Vector3(groundPosition.x, groundPosition.y, groundPosition.z), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
                     Vector3 originalScale = prefabToInstantiate.transform.localScale;
-                    float randomScaleFactor = Random.Range(0.5f, 0.9f);
+                    float randomScaleFactor = Random.Range(0.6f, 1f);
                     spawnedPrefab.transform.localScale = originalScale* randomScaleFactor;
                     NavTerrain navTerrain = spawnedPrefab.GetComponent<NavTerrain>();
                     if (navTerrain != null)

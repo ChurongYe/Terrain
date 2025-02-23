@@ -44,11 +44,11 @@ public class Voronoi : MonoBehaviour
         mapGenerate.GeneratePrefabs(mergedMap, width, height, colorMap);
 
         voronoiTexture.Apply();
-        quadRenderer = GetComponent<Renderer>();
-        if (quadRenderer != null)
-        {
-            quadRenderer.material.mainTexture = voronoiTexture;
-        }
+        //quadRenderer = GetComponent<Renderer>();
+        //if (quadRenderer != null)
+        //{
+        //    quadRenderer.material.mainTexture = voronoiTexture;
+        //}
 
     }
     public Color GetCellColor(int index, int x, int y)
