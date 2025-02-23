@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2095849077742801335}
   - component: {fileID: 7425029038776081915}
   - component: {fileID: 941016235493239928}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: house_type10
   m_TagString: Prefab
   m_Icon: {fileID: 0}

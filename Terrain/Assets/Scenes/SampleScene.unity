@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Voronoi: {fileID: 1977764650}
   navMeshSurface: {fileID: 184496992}
+  TreeGenerate: {fileID: 1113578813}
 --- !u!1 &184496991
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,6 +555,85 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1249873495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1113578812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1113578814}
+  - component: {fileID: 1113578813}
+  m_Layer: 0
+  m_Name: Tree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1113578813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113578812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8bfddf5059d0bb488bf8ec5bc1a5c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treePrefabs:
+  - {fileID: 7394127467205503936, guid: c1e8e93859417dd4a8d2b1b21960adcf, type: 3}
+  - {fileID: 6064010695062888638, guid: 6622e6112d9697f46b827ca7585ea4c2, type: 3}
+  - {fileID: 8414948398868532051, guid: 8db11274c3c46bb489f9e97b2cb51276, type: 3}
+  - {fileID: 1752157911853292002, guid: ac5e34dc5ecc1184b8e7630a0c58379d, type: 3}
+  - {fileID: 5893886981080642108, guid: 884f6e68e61b35e48a86888476a61161, type: 3}
+  - {fileID: 2550099655490484867, guid: 7d877fb91fa903b45adbb914eca7e336, type: 3}
+  - {fileID: 2276585779990527799, guid: b74df410c52a7864dbdd5cec2dc2f726, type: 3}
+  grassflowers:
+  - {fileID: 6212195747618966671, guid: d5030780ffa62bf4e8036840f8aa88ab, type: 3}
+  - {fileID: 4884813458634861118, guid: 270b5626eabbb9d428aa1e15b8f746fd, type: 3}
+  - {fileID: 4980199066157688565, guid: dacc8c3cd4a0f5c498eeb88d2df46e07, type: 3}
+  - {fileID: 4796461617469878661, guid: b694f17e0a939b34c803b221e8aef748, type: 3}
+  - {fileID: 2513534784318839808, guid: 835fc9d112793c547bddef60e0d6c802, type: 3}
+  - {fileID: 516455836960570843, guid: 0c9a97cb92dd1dc408f84cd5cf51addb, type: 3}
+  - {fileID: 2231370466488056004, guid: 80957bc1740b27e468e538589b94265d, type: 3}
+  - {fileID: 2381004432766010526, guid: 1635c0e881c42da4493e812b6a8b2c07, type: 3}
+  - {fileID: 6083367057898217546, guid: db4f83d71464c3a43895a86d0eeeb8ef, type: 3}
+  - {fileID: 4810291115420322368, guid: 419dda53d1df74f428277e4d99b9c628, type: 3}
+  - {fileID: 949469332430135394, guid: baef16ed735e2334eb07aabe6a301272, type: 3}
+  - {fileID: 8258344763727644000, guid: 37f20b0d7a44f6d44a1a343debe7f74d, type: 3}
+  - {fileID: 6924935498228561058, guid: d2c7b443a4f82b64f8140a5022fc78b7, type: 3}
+  treeCount: 60
+  grassflowerCount: 500
+  areaSize: {x: 200, y: 200}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  minScale: 0.8
+  maxScale: 1.5
+  maxAttempts: 10
+  overlapCheckRadius: 0.5
+--- !u!4 &1113578814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113578812}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -31.561005, y: -30.866787, z: 12.166977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249873489
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +780,7 @@ Transform:
   m_GameObject: {fileID: 1249873489}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.98, z: -4.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1259,3 +1339,4 @@ SceneRoots:
   - {fileID: 778428559}
   - {fileID: 132250496}
   - {fileID: 725226642}
+  - {fileID: 1113578814}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6575661647829523822}
   - component: {fileID: 1633641658232020027}
   - component: {fileID: 1813216074631453327}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tent_smallClosed
   m_TagString: Prefab
   m_Icon: {fileID: 0}
