@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public Voronoi Voronoi;
     public NavMeshSurface navMeshSurface;
     public TreeGenerate TreeGenerate;
+    public Tilemap Tilemap;
     void Update()
     {
         Clickmouse();
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
 
         Time.timeScale = 0f;
-
+        Tilemap.TileGenerate();
         yield return null;
 
         navMeshSurface.BuildNavMesh();
