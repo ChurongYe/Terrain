@@ -51,7 +51,7 @@ public class MapGenerate : MonoBehaviour
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
                     {
                         Vector3 groundPosition = hit.point;
-                        float randomScaleFactor = Random.Range(0.9f, 1.5f);
+                        float randomScaleFactor = Random.Range(0.9f, 1.3f);
                         int maxScaleAttempts = 5;
                         while (randomScaleFactor >= 0.1f && maxScaleAttempts > 0)
                         {

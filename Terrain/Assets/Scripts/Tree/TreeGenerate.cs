@@ -9,7 +9,8 @@ public class TreeGenerate : MonoBehaviour
     public int treeCount =20;
     public int grassflowerCount = 200;
     public Vector2 areaSize = new Vector2(10, 10); 
-    public LayerMask groundLayer;
+    public LayerMask treegroundLayer;
+    public LayerMask grassgroundLayer;
     public LayerMask obstacleLayer; 
     public float minScale = 0.8f;
     public float maxScale = 1.5f;
@@ -44,7 +45,7 @@ public class TreeGenerate : MonoBehaviour
                 );
 
 
-                if (Physics.Raycast(spawnPos, Vector3.down, out RaycastHit hit, 20f, groundLayer))
+                if (Physics.Raycast(spawnPos, Vector3.down, out RaycastHit hit, 20f, treegroundLayer))
                 {
                     Vector3 finalPos = hit.point;
                     if (!Physics.CheckSphere(finalPos, overlapCheckRadius, obstacleLayer))
@@ -74,7 +75,7 @@ public class TreeGenerate : MonoBehaviour
                 );
 
 
-                if (Physics.Raycast(spawnPos, Vector3.down, out RaycastHit hit, 20f, groundLayer))
+                if (Physics.Raycast(spawnPos, Vector3.down, out RaycastHit hit, 20f, grassgroundLayer))
                 {
                     Vector3 finalPos = hit.point;
                     if (!Physics.CheckSphere(finalPos, overlapCheckRadius, obstacleLayer))

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8846437154555978441}
   - component: {fileID: 2270444246865089834}
   - component: {fileID: 4358388904856129778}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rock_tallA
   m_TagString: Prefab
   m_Icon: {fileID: 0}
