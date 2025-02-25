@@ -20,6 +20,7 @@ public class Animal : MonoBehaviour
     [Header("Produce")]
     public GameObject ProductPrefab;
     private bool IsProducing = false;
+    private int ProduceCount = 0;
 
     protected NavMeshAgent Agent;
     protected AnimalState CurrentState = AnimalState.Idle;
@@ -55,13 +56,15 @@ public class Animal : MonoBehaviour
     }
     protected Vector3 ToRandomPosition(Vector3 StartPoint, float Radius)
     {
-        Vector3 MoveDir = Random.insideUnitSphere * Radius;
-        MoveDir += StartPoint;
-        NavMeshHit Hit;
-        if (NavMesh.SamplePosition(MoveDir, out Hit, Radius, NavMesh.AllAreas))
-            return Hit.position;
-        else
-            return ToRandomPosition(StartPoint, Radius);
+        for (int i = 0; i < 5; i++)
+        {
+            Vector3 MoveDir = Random.insideUnitSphere * Radius;
+            MoveDir += StartPoint;
+            NavMeshHit Hit;
+            if (NavMesh.SamplePosition(MoveDir, out Hit, Radius, NavMesh.AllAreas))
+                return Hit.position;
+        }
+        return StartPoint;
     }
     protected virtual void HandleIdle()
     {
@@ -97,7 +100,7 @@ public class Animal : MonoBehaviour
     private IEnumerator WaitToDestination()
     {
         float StartTime = Time.deltaTime;
-        while (Agent.remainingDistance > Agent.stoppingDistance)
+        while (Agent.pathPending||Agent.remainingDistance > Agent.stoppingDistance&&Agent.isActiveAndEnabled )
         {
             if (Time.deltaTime - StartTime >= MoveTime)
             {
@@ -111,28 +114,42 @@ public class Animal : MonoBehaviour
     }
     private void ChangeFigure()
     {
-        float GrowTime = 10f;   //10s from size1 to size2
+        float GrowTime = 10f;   //10s from size(young) to size(grown-up)
         //float GrowSpeed = 0.1f;
         //transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, GrowSpeed);
+        if(transform.localScale.magnitude < 2 * Vector3.one.magnitude)
         transform.localScale += Vector3.one / GrowTime * Time.deltaTime;
 
-        if (transform.localScale.magnitude >= 2 * Vector3.one.magnitude&&!IsProducing) //mature(can produce product)
+        if (transform.localScale.magnitude >= 2 * Vector3.one.magnitude&&!IsProducing)      //mature(can produce product)
         {
-            IsProducing = true;
-            InvokeRepeating(nameof(ProduceProduct),0f, 5f);//invoke:only call once
+            IsProducing = true;                                 //npc use this value!!
+            InvokeRepeating(nameof(ProduceProduct),0f, 5f);     //invoke:only call once
         }
     }
-    private void ProduceProduct()
+    protected virtual void ProduceProduct()
     {
         float ProductDistance = 0.5f;
         Vector3 ProductPoint = new Vector3(transform.position.x+ProductDistance, 0, transform.position.z);
         GameObject Product=Instantiate(ProductPrefab,ProductPoint, Quaternion.identity);
-        StartCoroutine(RemoveProduct(Product));
+        ProduceCount++;
+        //HarvestTimesBeforeDeath();        //wriiten in specific animals
+        //StartCoroutine(RemoveProduct(Product));
+        //if (ProduceCount >= 3)          
+        //    DestroyAnimal();
     }
-
-    private IEnumerator RemoveProduct(GameObject Product)
+    private void HarvestTimesBeforeDeath(int Times)
     {
-        yield return new WaitForSeconds(5);
-        Destroy(Product);
+        if (ProduceCount >= Times)      //npc harvests products ()times from the animal and then it will die/disappear
+            DestroyAnimal();
+    }
+    //private IEnumerator RemoveProduct(GameObject Product)
+    //{
+    //    yield return new WaitForSeconds(5);
+    //    Destroy(Product);
+    //}
+    private void DestroyAnimal()
+    {
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 }

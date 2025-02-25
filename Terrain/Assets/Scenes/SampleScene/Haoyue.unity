@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 0, y: 0, z: 0}
   ShoulderOffset: {x: 0.5, y: -0.4, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
@@ -1158,8 +1158,9 @@ GameObject:
   - component: {fileID: 1562116210}
   - component: {fileID: 1562116209}
   - component: {fileID: 1562116208}
+  - component: {fileID: 1562116211}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: EmitLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1253,6 +1254,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562116206}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1562116211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562116206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e94cf3a8f1b91d429b977f0db5c6a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1599630110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1302,7 @@ MonoBehaviour:
   Horizontal: 0
   Vertical: 0
   MoveSpeed: 5
+  Light: {fileID: 1562116211}
 --- !u!143 &1599630112
 CharacterController:
   m_ObjectHideFlags: 0

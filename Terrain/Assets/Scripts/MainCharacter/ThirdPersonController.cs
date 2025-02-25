@@ -13,6 +13,7 @@ public class ThirdPersonController : MonoBehaviour
     [Header("Ray")]
     Ray Ray;
     RaycastHit HitInfo;
+    public EmitLight Light;
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,8 +41,24 @@ public class ThirdPersonController : MonoBehaviour
     void EmitRay()
     {
         Ray = new Ray(transform.position, -transform.up);
-        if(Physics.Raycast(Ray, out HitInfo))
-        Debug.DrawLine(transform.position, HitInfo.point, Color.green);
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Light.SetLightVisibility();
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Light.SetLightColor();
+        }
+        //if(Physics.Raycast(Ray, out HitInfo))
+        //Debug.DrawLine(transform.position, HitInfo.point, Color.green);
+    }
+    void ChangeRayColor()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+          
+        }
+
     }
 
 }
