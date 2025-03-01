@@ -10,7 +10,7 @@ public class NPCNavigation : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask obstacleLayer; 
     public float groundRaycastHeight = 100f;
-
+    public List<Vector3> crops = new List<Vector3>();//harvest position
     public float minMoveInterval = 3f;
     public float maxMoveInterval = 15f;
     public float stopTimeLimit = 5f;
@@ -45,44 +45,120 @@ public class NPCNavigation : MonoBehaviour
 
             Animator animator = npc.GetComponent<Animator>();
             NPCController npcController = npc.GetComponent<NPCController>();
-
-            if (npcController != null)
+            NPCManager npcManager = npc.GetComponent<NPCManager>();
+            if (npcManager == null)
             {
-                if (agent.isOnOffMeshLink)
+                npcManager = npc.AddComponent<NPCManager>();
+            }
+            if (npcController != null && npcManager != null)
+            {
+                if (npcManager.npcState == NPCManager. NPCState.Normal)
                 {
-                    agent.speed = npcController.speed * 0.5f;
-                    agent.acceleration = npcController.acceleration * 0.5f;
-                }
-                else
-                {
-                    agent.speed = npcController.speed;
-                    agent.acceleration = npcController.acceleration;
-                }
-                //IfNPCstop
-                if (agent.velocity.magnitude < 0.1f)
-                {
-                    npcController.stopTime += Time.deltaTime;
-                    if (npcController.stopTime >= stopTimeLimit)
+                    if (agent.isOnOffMeshLink)
+                    {
+                        agent.speed = npcController.speed * 0.5f;
+                        agent.acceleration = npcController.acceleration * 0.5f;
+                    }
+                    else
+                    {
+                        agent.speed = npcController.speed;
+                        agent.acceleration = npcController.acceleration;
+                    }
+                    //IfNPCstop
+                    if (agent.velocity.magnitude < 0.1f)
+                    {
+                        npcController.stopTime += Time.deltaTime;
+                        if (npcController.stopTime >= stopTimeLimit)
+                        {
+                            npcController.stopTime = 0;
+                            SetRandomDestinationGlobal(agent);
+                        }
+                    }
+                    else
                     {
                         npcController.stopTime = 0;
-                        SetRandomDestinationGlobal(agent);
+                    }
+
+                    // Animation
+                    if (animator != null)
+                    {
+                        float speed = agent.velocity.magnitude;
+                        animator.SetBool("isWalking", speed > 0.1f);
                     }
                 }
-                else
+                else if (npcManager.npcState == NPCManager.NPCState.Resting)
                 {
-                    npcController.stopTime = 0;
+                    agent.ResetPath();
+                    if (animator != null)
+                    {
+                        animator.SetBool("isWalking", false);
+                        animator.SetTrigger("Resting");
+                    }
                 }
-
-                // Animation
-                if (animator != null)
+                else if (npcManager.npcState == NPCManager.NPCState.Harvesting)
                 {
-                    float speed = agent.velocity.magnitude;
-                    animator.SetBool("isWalking", speed > 0.1f);
+                    if (!crops.Contains(npcController.harvestTargetPosition))
+                    {
+                        npcManager.npcState = NPCManager.NPCState.Normal;
+                        SetRandomDestinationGlobal(agent);
+                    }
+                    else if (agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        StartCoroutine(HarvestCrop(npcManager, npcController));
+                    }
                 }
             }
         }
     }
-    public void SpawnNPCs(int count)
+    public void MoveToTarget(Vector3 target)
+    {
+        foreach (GameObject npc in npcs)
+        {
+            if (npc == null) continue;
+            NavMeshAgent agent = npc.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.SetDestination(target);
+            }
+        }
+    }
+    public Vector3? FindNearestHarvestableCrop(Vector3 npcPosition)
+    {
+        if (crops.Count == 0)
+            return null;
+
+        Vector3 closestCrop = Vector3.zero;
+        float minDistance = float.MaxValue;
+
+        foreach (Vector3 crop in crops)
+        {
+            float distance = Vector3.Distance(npcPosition, crop);
+            if (distance < minDistance)
+            {
+                closestCrop = crop;
+                minDistance = distance;
+            }
+        }
+
+        return minDistance < float.MaxValue ? closestCrop : null;
+    }
+    IEnumerator HarvestCrop(NPCManager npcManager, NPCController npcController)
+    {
+        Animator animator = npcController.GetComponent<Animator>();
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Harvest");
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        crops.Remove(npcController.harvestTargetPosition); // 移除已收获作物
+        npcManager.npcState = NPCManager.NPCState.Normal;
+        SetRandomDestinationGlobal(npcController.GetComponent<NavMeshAgent>());
+    }
+
+    public IEnumerator SpawnNPCs(int count)
     {
         foreach (GameObject npc in npcs)
         {
@@ -127,6 +203,7 @@ public class NPCNavigation : MonoBehaviour
                 }
             }
         }
+        yield return null;
     }
 
     private void ShuffleList(List<int> list)
@@ -163,7 +240,6 @@ public class NPCNavigation : MonoBehaviour
 
             if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
-                // **新增：Raycast 检测是否在山体内部**
                 if (!IsInsideMountain(hit.position))
                 {
                     Collider[] colliders = Physics.OverlapSphere(hit.position, 1f, obstacleLayer);
@@ -181,10 +257,9 @@ public class NPCNavigation : MonoBehaviour
     }
     bool IsInsideMountain(Vector3 position)
     {
-        Vector3 rayOrigin = position + Vector3.up * 50f; // 让射线从高处向下
+        Vector3 rayOrigin = position + Vector3.up * 50f; 
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 100f, obstacleLayer))
         {
-            // 如果射线命中了障碍层（山体），说明点在山体内部
             return true;
         }
         return false;
@@ -210,7 +285,6 @@ public class NPCNavigation : MonoBehaviour
         NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
         if (navMeshData.vertices.Length == 0)
         {
-            Debug.LogWarning("NavMesh 数据为空，无法找到随机点！");
             return;
         }
 
@@ -221,6 +295,8 @@ public class NPCNavigation : MonoBehaviour
 
             if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
+                if (agent == null)
+                    return;
                 if (!IsPathBlocked(agent.transform.position, hit.position))
                 {
                     agent.SetDestination(hit.position);
@@ -229,7 +305,7 @@ public class NPCNavigation : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("多次尝试后仍未找到有效 NavMesh 位置");
+        Debug.LogWarning("no NavMesh position");
     }
     bool IsPathBlocked(Vector3 startPosition, Vector3 targetPosition)
     {
@@ -247,4 +323,6 @@ public class NPCController : MonoBehaviour
     public float stopTime = 0;
     public float speed;
     public float acceleration;
+    public Vector3 harvestTargetPosition; // 目标作物的位置
+    public bool isHarvesting = false; // 是否正在收获
 }

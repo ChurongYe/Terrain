@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +14,11 @@ public class MapGenerate : MonoBehaviour
     public int maxPrefabsPerRegion = 5; 
     public int maxSpawnAttempts = 10; 
     public LayerMask groundLayer;
+    public Voronoi Voronoi;
     private List<Vector2> occupiedPositions = new List<Vector2>(); 
     private List<GameObject> spawnedPrefabs = new List<GameObject>();
 
-    public void GeneratePrefabs(int[,] mergedMap, int width, int height, Color[,] colorMap)
+    public IEnumerator GeneratePrefabs(int[,] mergedMap, int width, int height, Color[,] colorMap)
     {
         ClearPrefabs();
 
@@ -104,6 +106,7 @@ public class MapGenerate : MonoBehaviour
                     spawnedPrefabs.Add(spawnedPrefab);
                 }
             }
+            yield return null;
         }
     }
     private Dictionary<int, Vector2> CalculateRegionCenters(int[,] mergedMap, int width, int height)

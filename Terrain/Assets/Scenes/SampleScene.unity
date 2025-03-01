@@ -357,6 +357,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   groundRaycastHeight: 100
+  crops: []
   minMoveInterval: 3
   maxMoveInterval: 15
   stopTimeLimit: 5
@@ -526,14 +527,12 @@ MonoBehaviour:
   - {fileID: 6924935498228561058, guid: d2c7b443a4f82b64f8140a5022fc78b7, type: 3}
   - {fileID: 3136479737061934259, guid: 93d63ccf1cc69544c9f69e90c31fe0e4, type: 3}
   - {fileID: 1291976098127368216, guid: 540d77485ad360743ad05ca88c64f96d, type: 3}
-  - {fileID: 1216191676549592743, guid: 74d7094cf94f55f4bbc78f5ab62e00d1, type: 3}
-  - {fileID: 7982163558383270630, guid: 577275f1481e02e468f693847194ba5d, type: 3}
   treeCount: 80
   grassflowerCount: 700
   areaSize: {x: 200, y: 200}
   treegroundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   grassgroundLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -994,6 +993,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  Voronoi: {fileID: 1977764650}
 --- !u!114 &1977764650
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class TreeGenerate : MonoBehaviour
     public float minDistanceBetweenTrees = 2.0f;
     private List<GameObject> trees = new List<GameObject>();
     private List<GameObject> Grassflower = new List<GameObject>();
-    public void GenerateTrees()
+    public IEnumerator GenerateTrees()
     {
         foreach (var tree in trees) Destroy(tree);
         foreach (var grassflower in Grassflower) Destroy(grassflower);
@@ -36,11 +36,11 @@ public class TreeGenerate : MonoBehaviour
                 attempts++;
                 Vector3 spawnPos = new Vector3(
                     Random.Range(-areaSize.x / 2, areaSize.x / 2),
-                    10,
+                    60,
                     Random.Range(-areaSize.y / 2, areaSize.y / 2)
                 );
 
-                RaycastHit[] hits = Physics.RaycastAll(spawnPos, Vector3.down, 20f, treegroundLayer);
+                RaycastHit[] hits = Physics.RaycastAll(spawnPos, Vector3.down, 100f, treegroundLayer);
                 if (hits.Length > 0)
                 {
                     Vector3 highestPoint = hits[0].point;
@@ -52,7 +52,7 @@ public class TreeGenerate : MonoBehaviour
                         }
                     }
 
-                    Vector3 finalPos = highestPoint + Vector3.up * 0.5f; // ¶îÍâÏòÉÏÆ«ÒÆ
+                    Vector3 finalPos = highestPoint ;
 
                     if (!Physics.CheckSphere(finalPos, overlapCheckRadius, obstacleLayer) &&
                         !IsTooCloseToOtherTrees(finalPos))
@@ -78,11 +78,11 @@ public class TreeGenerate : MonoBehaviour
                 attempts++;
                 Vector3 spawnPos = new Vector3(
                     Random.Range(-areaSize.x / 2, areaSize.x / 2),
-                    10,
+                    60,
                     Random.Range(-areaSize.y / 2, areaSize.y / 2)
                 );
 
-                RaycastHit[] hits = Physics.RaycastAll(spawnPos, Vector3.down, 20f, grassgroundLayer);
+                RaycastHit[] hits = Physics.RaycastAll(spawnPos, Vector3.down, 100f, grassgroundLayer);
                 if (hits.Length > 0)
                 {
                     Vector3 highestPoint = hits[0].point;
@@ -94,7 +94,7 @@ public class TreeGenerate : MonoBehaviour
                         }
                     }
 
-                    Vector3 finalPos = highestPoint + Vector3.up * 0.2f;
+                    Vector3 finalPos = highestPoint ;
 
                     if (!Physics.CheckSphere(finalPos, overlapCheckRadius, obstacleLayer))
                     {
@@ -108,6 +108,7 @@ public class TreeGenerate : MonoBehaviour
                 }
             }
         }
+        yield return null;
     }
     private bool IsTooCloseToOtherTrees(Vector3 newPosition)
     {

@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Clickmouse();
+        if (Input.GetMouseButtonDown(1))
+        {
+           StartCoroutine(TreeGenerate.GenerateTrees());
+        }
     }
 
     private void Clickmouse()
@@ -31,39 +35,13 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        yield return GenerateVoronoi();
-        yield return StartCoroutine(GenerateTrees());
-
-        yield return StartCoroutine(GenerateTilemap());
+        yield return StartCoroutine(Voronoi.GenerateTexture());
+        yield return StartCoroutine(Tilemap.TileGenerate());
         navMeshSurface.BuildNavMesh();
+        Time.timeScale = 1f;
+        yield return new WaitUntil(() => navMeshSurface.navMeshData != null);
+        yield return StartCoroutine(TreeGenerate.GenerateTrees());
+        yield return StartCoroutine(NPCNavigation.SpawnNPCs(npccount));
 
-        yield return new WaitUntil(() => navMeshSurface.navMeshData != null); 
-
-        yield return StartCoroutine(GenerateNPCs());
-
-        Time.timeScale = 1f; 
-    }
-
-    private IEnumerator GenerateTilemap()
-    {
-        Tilemap.TileGenerate();
-        yield return null;  
-    }
-
-    private IEnumerator GenerateTrees()
-    {
-        TreeGenerate.GenerateTrees();
-        yield return null;  
-    }
-
-    private IEnumerator GenerateNPCs()
-    {
-        NPCNavigation.SpawnNPCs(npccount);
-        yield return null;  
-    }
-    private IEnumerator GenerateVoronoi()
-    {
-        Voronoi.GenerateTexture();
-        yield return null;
     }
 }
