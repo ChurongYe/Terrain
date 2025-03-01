@@ -6,26 +6,27 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField]
     private List<AnimalSettings> Animals = new List<AnimalSettings>();
-    private float SpawnRadius=15f;
-    private void Start()
+    public float SpawnRadius=15f;
+    void Start()
     {
         SpawnAnimals();
     }
-    private void SpawnAnimals()
+    protected virtual void SpawnAnimals()
     {
         foreach (var AnimalSettings in Animals)
         {
-            for (int i = 0; i < AnimalSettings.SpawnCount; i++)
+            int SpawnCount = Random.Range(AnimalSettings.MinSpawnCount, AnimalSettings.MaxSpawnCount);
+            for (int i = 0; i <SpawnCount; i++)
             {
                 Vector3 SpawnPoint = GetRandomSpawnPosition();
                 Instantiate(AnimalSettings.AnimalPrefab, SpawnPoint, Quaternion.identity);
             }
         } 
     }
-    private Vector3 GetRandomSpawnPosition()
+    protected virtual Vector3 GetRandomSpawnPosition()
     {
         Vector2 RandomCircle = Random.insideUnitCircle;
-        return new Vector3(transform.position.x+RandomCircle.x*SpawnRadius,0,transform.position.z+RandomCircle.y*SpawnRadius);
+        return new Vector3(transform.position.x+RandomCircle.x*SpawnRadius,transform.position.y,transform.position.z+RandomCircle.y*SpawnRadius);
     }
 }
 
@@ -33,5 +34,7 @@ public class Spawner : MonoBehaviour
 public class AnimalSettings
 {
     public GameObject AnimalPrefab;
-    public int SpawnCount = 5;
+    public int MinSpawnCount = 3;
+    public int MaxSpawnCount = 8;
+    //public int SpawnCount = 5;
 }

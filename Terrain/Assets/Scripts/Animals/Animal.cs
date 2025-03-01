@@ -19,12 +19,18 @@ public class Animal : MonoBehaviour
     public float IdleTime;
     [Header("Produce")]
     public GameObject ProductPrefab;
-    private bool IsProducing = false;
-    private int ProduceCount = 0;
+    public GameObject ExclamationMark;
+    private bool IsProducing ;
+    public bool CanProduce ;
+    public bool CanHarvest ;
+    public bool Harvested = true;
+    //private int ProduceCount = 0;
+    [Header("Animation")]
+    public Animator Ani;
 
     protected NavMeshAgent Agent;
     protected AnimalState CurrentState = AnimalState.Idle;
-    // Start is called before the first frame update
+
     void Start()
     {
         InitialiseAnimal();
@@ -32,6 +38,7 @@ public class Animal : MonoBehaviour
     private void Update()
     {
         ChangeFigure();
+        SwitchAnimation();
     }
 
     protected virtual void InitialiseAnimal()
@@ -120,36 +127,80 @@ public class Animal : MonoBehaviour
         if(transform.localScale.magnitude < 2 * Vector3.one.magnitude)
         transform.localScale += Vector3.one / GrowTime * Time.deltaTime;
 
-        if (transform.localScale.magnitude >= 2 * Vector3.one.magnitude&&!IsProducing)      //mature(can produce product)
+        if (transform.localScale.magnitude >= 2 * Vector3.one.magnitude)      //mature(can produce product)
         {
-            IsProducing = true;                                 //npc use this value!!
-            InvokeRepeating(nameof(ProduceProduct),0f, 5f);     //invoke:only call once
+            if (!IsProducing)
+            {
+                IsProducing = true;
+                InvokeRepeating(nameof(ControlCanProduce),0f, 5f);
+            }
+            HandleExclamationMark(); //this appears above animal(show it is mature)
+            //InvokeRepeating(nameof(ProduceProduct),0f, 5f);     //invoke:only call once
+
+            ControlHarvest();
+
         }
+    }
+ 
+    private void HandleExclamationMark()
+    {
+        if(CanProduce)
+            ExclamationMark.SetActive(true);
+        if (Harvested)
+            ExclamationMark.SetActive(false);
+    }
+    private void ControlCanProduce()
+    {
+        //if (Random.Range(0,5)==2)               //can produce randomly
+        //{
+        //    CanProduce=true;                                                                    //npc needs this signal
+        //}
+        CanProduce = true;
+        Harvested = false;
     }
     protected virtual void ProduceProduct()
     {
-        float ProductDistance = 0.5f;
-        Vector3 ProductPoint = new Vector3(transform.position.x+ProductDistance, 0, transform.position.z);
+        float ProductDistance = 2f;
+        Vector3 ProductPoint = new Vector3(transform.position.x,transform.position.y+ProductDistance, transform.position.z);
         GameObject Product=Instantiate(ProductPrefab,ProductPoint, Quaternion.identity);
-        ProduceCount++;
+        //ProduceCount++;
         //HarvestTimesBeforeDeath();        //wriiten in specific animals
-        //StartCoroutine(RemoveProduct(Product));
+        StartCoroutine(RemoveProduct(Product));
         //if (ProduceCount >= 3)          
         //    DestroyAnimal();
     }
-    private void HarvestTimesBeforeDeath(int Times)
-    {
-        if (ProduceCount >= Times)      //npc harvests products ()times from the animal and then it will die/disappear
-            DestroyAnimal();
-    }
-    //private IEnumerator RemoveProduct(GameObject Product)
+    //private void HarvestTimesBeforeDeath(int Times)
     //{
-    //    yield return new WaitForSeconds(5);
-    //    Destroy(Product);
+    //    if (ProduceCount >= Times)      //npc harvests products ()times from the animal and then it will die/disappear
+    //        DestroyAnimal();
     //}
-    private void DestroyAnimal()
+    private IEnumerator RemoveProduct(GameObject Product)
     {
-        StopAllCoroutines();
-        Destroy(gameObject);
+        yield return new WaitForSeconds(1);
+        Destroy(Product);
+    }
+    private void ControlHarvest()
+    {
+        if (CanHarvest&&!Harvested)         //NPC gets close->can harvest->products pop up
+        {
+            ProduceProduct();
+            CanHarvest = false;
+            Harvested = true;
+        }
+
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("NPC"))
+            CanHarvest = true;
+    }
+    //private void DestroyAnimal()
+    //{
+    //    StopAllCoroutines();
+    //    Destroy(gameObject);
+    //}
+    void SwitchAnimation()
+    {
+        Ani.SetFloat("Speed", Agent.velocity.sqrMagnitude);
     }
 }

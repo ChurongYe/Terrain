@@ -52,13 +52,13 @@ public class ThirdPersonController : MonoBehaviour
         //if(Physics.Raycast(Ray, out HitInfo))
         //Debug.DrawLine(transform.position, HitInfo.point, Color.green);
     }
-    void ChangeRayColor()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
+    //void ChangeRayColor()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.K))
+    //    {
           
-        }
+    //    }
 
-    }
+    //}
 
 }
