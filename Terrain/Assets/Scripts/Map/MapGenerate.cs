@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +14,11 @@ public class MapGenerate : MonoBehaviour
     public int maxPrefabsPerRegion = 5; 
     public int maxSpawnAttempts = 10; 
     public LayerMask groundLayer;
+    public Voronoi Voronoi;
     private List<Vector2> occupiedPositions = new List<Vector2>(); 
     private List<GameObject> spawnedPrefabs = new List<GameObject>();
 
-    public void GeneratePrefabs(int[,] mergedMap, int width, int height, Color[,] colorMap)
+    public IEnumerator GeneratePrefabs(int[,] mergedMap, int width, int height, Color[,] colorMap)
     {
         ClearPrefabs();
 
@@ -51,7 +53,7 @@ public class MapGenerate : MonoBehaviour
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
                     {
                         Vector3 groundPosition = hit.point;
-                        float randomScaleFactor = Random.Range(0.9f, 1.5f);
+                        float randomScaleFactor = Random.Range(0.9f, 1.2f);
                         int maxScaleAttempts = 5;
                         while (randomScaleFactor >= 0.1f && maxScaleAttempts > 0)
                         {
@@ -92,7 +94,7 @@ public class MapGenerate : MonoBehaviour
 
                     GameObject spawnedPrefab = Instantiate(prefabToInstantiate, new Vector3(groundPosition.x, groundPosition.y, groundPosition.z), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
                     Vector3 originalScale = prefabToInstantiate.transform.localScale;
-                    float randomScaleFactor = Random.Range(0.5f, 0.9f);
+                    float randomScaleFactor = Random.Range(0.7f, 1f);
                     spawnedPrefab.transform.localScale = originalScale* randomScaleFactor;
                     NavTerrain navTerrain = spawnedPrefab.GetComponent<NavTerrain>();
                     if (navTerrain != null)
@@ -104,6 +106,7 @@ public class MapGenerate : MonoBehaviour
                     spawnedPrefabs.Add(spawnedPrefab);
                 }
             }
+            yield return null;
         }
     }
     private Dictionary<int, Vector2> CalculateRegionCenters(int[,] mergedMap, int width, int height)

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,6 @@ public class Voronoi : MonoBehaviour
     public int width = 256;
     public int height = 256;
     public int[] units = { 4, 3, 2 };
-
     [Header("Color")]
     [Range(0f, 1f)] public float redProbability = 0.2f;
     [Range(0f, 1f)] public float yellowProbability = 0.2f;
@@ -18,8 +18,9 @@ public class Voronoi : MonoBehaviour
 
     private Renderer quadRenderer;
     private Dictionary<Vector2Int, int> cellIndexCache = new Dictionary<Vector2Int, int>();
-    public void GenerateTexture()
+    public IEnumerator GenerateTexture()
     {
+
         int[,] voronoiMap = GenerateVoronoi(width, height);
         Dictionary<int, int> regionSizes = ComputeRegionSizes(voronoiMap); 
         int totalArea = width * height;  
@@ -41,14 +42,14 @@ public class Voronoi : MonoBehaviour
             }
         }
 
-        mapGenerate.GeneratePrefabs(mergedMap, width, height, colorMap);
+        yield return mapGenerate.StartCoroutine(mapGenerate.GeneratePrefabs(mergedMap, width, height, colorMap));
 
         voronoiTexture.Apply();
-        quadRenderer = GetComponent<Renderer>();
-        if (quadRenderer != null)
-        {
-            quadRenderer.material.mainTexture = voronoiTexture;
-        }
+        //quadRenderer = GetComponent<Renderer>();
+        //if (quadRenderer != null)
+        //{
+        //    quadRenderer.material.mainTexture = voronoiTexture;
+        //}
 
     }
     public Color GetCellColor(int index, int x, int y)
