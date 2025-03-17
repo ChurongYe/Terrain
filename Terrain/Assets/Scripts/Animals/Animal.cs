@@ -38,7 +38,7 @@ public class Animal : MonoBehaviour
     private void Update()
     {
         ChangeFigure();
-        SwitchAnimation();
+        //SwitchAnimation();
     }
 
     protected virtual void InitialiseAnimal()
@@ -201,6 +201,6 @@ public class Animal : MonoBehaviour
     //}
     void SwitchAnimation()
     {
-        Ani.SetFloat("Speed", Agent.velocity.sqrMagnitude);
+        //Ani.SetFloat("Speed", Agent.velocity.sqrMagnitude);
     }
 }

@@ -28,8 +28,9 @@ Material:
     m_Floats:
     - _DstBlend: 0
     - _Glossiness: 0.903
-    - _Metallic: 0.649
+    - _Metallic: 0.833
     - _Mode: 0
+    - _SmoothnessTextureChannel: 0
     - _SrcBlend: 1
     - _ZWrite: 1
     m_Colors:

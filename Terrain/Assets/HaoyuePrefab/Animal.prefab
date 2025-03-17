@@ -52,6 +52,11 @@ MonoBehaviour:
   MoveTime: 6
   IdleTime: 2
   ProductPrefab: {fileID: 3935555464781130482, guid: 3b35f7f1fd5f20e49922a71b05e58e6a, type: 3}
+  ExclamationMark: {fileID: 0}
+  CanProduce: 0
+  CanHarvest: 0
+  Harvested: 1
+  Ani: {fileID: 0}
 --- !u!195 &4647691878800826908
 NavMeshAgent:
   m_ObjectHideFlags: 0

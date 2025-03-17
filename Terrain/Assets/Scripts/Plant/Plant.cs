@@ -21,8 +21,11 @@ public class Plant : MonoBehaviour
     }
     void SwitchState()//to mature state
     {
-        if(IsMature)
-        transform.localScale = Vector3.one * 2;
+        if (IsMature)
+        {
+            transform.localScale = Vector3.one * 2;
+        }
+
     }
     void ControlMature()
     {
