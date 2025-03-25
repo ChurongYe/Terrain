@@ -173,7 +173,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 10, z: 10}
+  m_Size: {x: 12, y: 10, z: 12}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &27660010
 GameObject:
@@ -252,6 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 229399595}
   - component: {fileID: 229399594}
+  - component: {fileID: 229399596}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -336,6 +337,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &229399596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229399593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &270254075
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +422,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -534,7 +558,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -675,7 +699,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -812,7 +836,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -947,7 +971,7 @@ Transform:
   m_LocalRotation: {x: 1.110223e-17, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.89, y: -2.76, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1599630115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2138,7 +2162,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2275,15 +2299,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1315762304}
-  - component: {fileID: 1315762303}
+  - component: {fileID: 1315762305}
   m_Layer: 0
-  m_Name: PlantSpawner
+  m_Name: FruitSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1315762303
+--- !u!4 &1315762304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315762302}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.44, y: 4.83, z: -1.944032}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1315762305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2296,38 +2335,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animals:
-  - AnimalPrefab: {fileID: 2502043535706284509, guid: a4694062ab85a9c46834a0332faa402c, type: 3}
+  - AnimalPrefab: {fileID: 2172939092492100177, guid: 632f171e0790aca40845c64d9cce26d9, type: 3}
+    MinSpawnCount: 10
+    MaxSpawnCount: 20
+  - AnimalPrefab: {fileID: 3874470207793385030, guid: 5c5883454a5ba19458b728b240efec6c, type: 3}
     MinSpawnCount: 5
     MaxSpawnCount: 10
-    PointNumber: 0
+  - AnimalPrefab: {fileID: 6733621487473598094, guid: d557b509b064e004a8e9e8cb96c5ef3d, type: 3}
+    MinSpawnCount: 10
+    MaxSpawnCount: 15
+  SpawnRadius: 10
+  SpawnPointAmount: 6
+  SpawnBoxX: 3
+  SpawnBoxZ: 3
+  CreatureMask: 10
+  LandMask: 11
+  RayDistance: 10
+--- !u!1 &1326892317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1326892319}
+  - component: {fileID: 1326892318}
+  m_Layer: 0
+  m_Name: CropSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1326892318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326892317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c9d44411195254e832a36370698603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animals:
   - AnimalPrefab: {fileID: 5504498706166850188, guid: c6d5431ce09face459563945d83fff4c, type: 3}
-    MinSpawnCount: 8
-    MaxSpawnCount: 16
-    PointNumber: 1
+    MinSpawnCount: 10
+    MaxSpawnCount: 20
   - AnimalPrefab: {fileID: 4475926464535627143, guid: f768ce6700919104ea7367df6fd2e595, type: 3}
+    MinSpawnCount: 5
+    MaxSpawnCount: 10
+  - AnimalPrefab: {fileID: 2259600337453946060, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
     MinSpawnCount: 10
-    MaxSpawnCount: 20
-    PointNumber: 2
-  - AnimalPrefab: {fileID: 6724272586369727981, guid: 77f567bfa5780a2419c3bcf51dc3e71c, type: 3}
-    MinSpawnCount: 10
-    MaxSpawnCount: 20
-    PointNumber: 2
-  - AnimalPrefab: {fileID: 9139250797174038299, guid: 7ed176cc745950d47b6b46b162a59c1c, type: 3}
-    MinSpawnCount: 10
-    MaxSpawnCount: 20
-    PointNumber: 2
-  SpawnAreas: []
-  SpawnRadius: 3
---- !u!4 &1315762304
+    MaxSpawnCount: 15
+  SpawnRadius: 10
+  SpawnPointAmount: 6
+  SpawnBoxX: 3
+  SpawnBoxZ: 3
+  CreatureMask: 10
+  LandMask: 11
+  RayDistance: 10
+--- !u!4 &1326892319
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315762302}
+  m_GameObject: {fileID: 1326892317}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0237541, y: 0, z: -1.944032}
+  m_LocalPosition: {x: 12.44, y: 4.83, z: -1.944032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2344,12 +2423,12 @@ GameObject:
   - component: {fileID: 1427660768}
   - component: {fileID: 1427660769}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: AnimalSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1427660768
 Transform:
   m_ObjectHideFlags: 0
@@ -2359,7 +2438,7 @@ Transform:
   m_GameObject: {fileID: 1427660766}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -13.3}
+  m_LocalPosition: {x: 0, y: 0, z: -18.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2378,23 +2457,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animals:
-  - AnimalPrefab: {fileID: 2621025697825239586, guid: 02f4fe91e9393064bac049d4a53dcde6, type: 3}
-    MinSpawnCount: 10
-    MaxSpawnCount: 15
-    PointNumber: 0
+  - AnimalPrefab: {fileID: 5237925018154292665, guid: 170390f2b8841524ca653ffd7a7e19ec, type: 3}
+    MinSpawnCount: 6
+    MaxSpawnCount: 12
   - AnimalPrefab: {fileID: 5357567441876905707, guid: 7636562b18b9be54c8aba9bf05009e5a, type: 3}
     MinSpawnCount: 5
     MaxSpawnCount: 10
-    PointNumber: 1
-  - AnimalPrefab: {fileID: 5504498706166850188, guid: c6d5431ce09face459563945d83fff4c, type: 3}
+  - AnimalPrefab: {fileID: 230323124182712725, guid: 3ada7101db518c84398f1735ed3e2735, type: 3}
     MinSpawnCount: 5
     MaxSpawnCount: 10
-    PointNumber: 2
-  SpawnAreas:
-  - {fileID: 13470993}
-  - {fileID: 1735442410}
-  - {fileID: 1452292752}
-  SpawnRadius: 15
+  - AnimalPrefab: {fileID: 230323124182712725, guid: c5eca6c8a66095d40912e8882f1176c3, type: 3}
+    MinSpawnCount: 5
+    MaxSpawnCount: 10
+  SpawnRadius: 30
+  SpawnPointAmount: 6
+  SpawnBoxX: 3
+  SpawnBoxZ: 2
+  CreatureMask: 10
+  LandMask: 0
+  RayDistance: 10
 --- !u!1 &1452292750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2795,7 +2876,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2865,7 +2946,7 @@ Transform:
   m_GameObject: {fileID: 1685620554}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -2.99, y: 2.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2932,7 +3013,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3231,7 +3312,7 @@ Transform:
   m_GameObject: {fileID: 1820203402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 3.5, z: -2}
+  m_LocalPosition: {x: -2.49, y: 3.08, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3336,7 +3417,7 @@ Transform:
   m_GameObject: {fileID: 1938473487}
   serializedVersion: 2
   m_LocalRotation: {x: 0.020178597, y: -0.9723886, z: 0.207302, w: 0.10525787}
-  m_LocalPosition: {x: 0.5, y: 3.5, z: -2}
+  m_LocalPosition: {x: -2.49, y: 3.08, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3477,6 +3558,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89dfeda876fd9c64b9225077224a1242, type: 3}
+--- !u!1001 &1524947284743826850
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445767786851454582, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259600337453946060, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+      propertyPath: m_Name
+      value: corn
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3491,8 +3629,10 @@ SceneRoots:
   - {fileID: 1427660768}
   - {fileID: 1603640897}
   - {fileID: 1315762304}
+  - {fileID: 1326892319}
   - {fileID: 27660011}
   - {fileID: 1810918841}
   - {fileID: 2068258668}
   - {fileID: 850459464}
   - {fileID: 1778228707}
+  - {fileID: 1524947284743826850}
