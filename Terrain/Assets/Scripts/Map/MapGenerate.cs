@@ -9,6 +9,7 @@ public class MapGenerate : MonoBehaviour
     public GameObject[] villagePrefab;  
     public GameObject[] landPrefab;     
     public GameObject[] mountainPrefab;
+    public GameObject parentContainer;
     public int margin = 10;
     public float prefabSpacing = 3f;  
     public int maxPrefabsPerRegion = 5; 
@@ -59,6 +60,7 @@ public class MapGenerate : MonoBehaviour
                         {
                             GameObject spawnedPrefab = Instantiate(prefabToInstantiate, groundPosition, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
                             spawnedPrefab.transform.localScale = prefabToInstantiate.transform.localScale * randomScaleFactor;
+                            spawnedPrefab.transform.parent = parentContainer.transform;
                             NavTerrain navTerrain = spawnedPrefab.GetComponent<NavTerrain>();
                             if (navTerrain != null)
                             {
@@ -96,6 +98,7 @@ public class MapGenerate : MonoBehaviour
                     Vector3 originalScale = prefabToInstantiate.transform.localScale;
                     float randomScaleFactor = Random.Range(0.7f, 1f);
                     spawnedPrefab.transform.localScale = originalScale* randomScaleFactor;
+                    spawnedPrefab.transform.parent = parentContainer.transform;
                     NavTerrain navTerrain = spawnedPrefab.GetComponent<NavTerrain>();
                     if (navTerrain != null)
                     {

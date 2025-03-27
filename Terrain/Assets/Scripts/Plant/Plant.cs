@@ -41,11 +41,12 @@ public abstract class Plant : MonoBehaviour
             transform.localScale = Vector3.one * SizeMultipler;
             transform.position = StartPosition + Vector3.up * PositionMultipler;
         }
+
     }
 
     protected virtual void DisappearBeforeHarvest() 
     {
         if (Harvested)
-            Destroy(gameObject);
+            Destroy(gameObject,1.5f);
     }
 }

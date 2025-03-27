@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class TreeGenerate : MonoBehaviour
 {
     public GameObject[] treePrefabs;
     public GameObject[] grassflowers;
+    public GameObject parentContainer;
     public int treeCount =20;
     public int grassflowerCount = 200;
     public Vector2 areaSize = new Vector2(10, 10); 
@@ -61,6 +63,7 @@ public class TreeGenerate : MonoBehaviour
                         GameObject tree = Instantiate(treePrefab, finalPos, Quaternion.Euler(0, Random.Range(0, 360), 0));
                         float scale = Random.Range(minScale, maxScale);
                         tree.transform.localScale = Vector3.one * scale;
+                        tree.transform.parent = parentContainer.transform;
                         trees.Add(tree);
                         IfPlaced = true;
                     }
@@ -102,6 +105,7 @@ public class TreeGenerate : MonoBehaviour
                         GameObject grassflower = Instantiate(grassflowerPrefab, finalPos, Quaternion.Euler(0, Random.Range(0, 360), 0));
                         float scale = Random.Range(minScale, maxScale);
                         grassflower.transform.localScale = Vector3.one * scale;
+                        grassflower.transform.parent = parentContainer.transform;
                         Grassflower.Add(grassflower);
                         IfPlaced = true;
                     }

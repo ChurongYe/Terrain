@@ -171,7 +171,7 @@ MonoBehaviour:
   TreeGenerate: {fileID: 1113578813}
   Tilemap: {fileID: 1508027573}
   NPCNavigation: {fileID: 426062918}
-  npccount: 5
+  npccount: 1
 --- !u!1 &184496991
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,8 +356,6 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 384
-  groundRaycastHeight: 100
-  crops: []
   minMoveInterval: 3
   maxMoveInterval: 15
   stopTimeLimit: 5
@@ -375,6 +373,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -20.717392, y: 2.8899746, z: 4.949437}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &529677978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 529677979}
+  m_Layer: 0
+  m_Name: GoodsGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &529677979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529677978}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.26517856, y: -5.407627, z: 30.700539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -551,6 +580,7 @@ MonoBehaviour:
   - {fileID: 6924935498228561058, guid: d2c7b443a4f82b64f8140a5022fc78b7, type: 3}
   - {fileID: 3136479737061934259, guid: 93d63ccf1cc69544c9f69e90c31fe0e4, type: 3}
   - {fileID: 1291976098127368216, guid: 540d77485ad360743ad05ca88c64f96d, type: 3}
+  parentContainer: {fileID: 529677978}
   treeCount: 80
   grassflowerCount: 700
   areaSize: {x: 200, y: 200}
@@ -870,6 +900,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1689702802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1689702804}
+  - component: {fileID: 1689702803}
+  m_Layer: 0
+  m_Name: CropSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1689702803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689702802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c9d44411195254e832a36370698603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animals:
+  - AnimalPrefab: {fileID: 5504498706166850188, guid: c6d5431ce09face459563945d83fff4c, type: 3}
+    MinSpawnCount: 10
+    MaxSpawnCount: 20
+  - AnimalPrefab: {fileID: 4475926464535627143, guid: f768ce6700919104ea7367df6fd2e595, type: 3}
+    MinSpawnCount: 5
+    MaxSpawnCount: 10
+  - AnimalPrefab: {fileID: 2259600337453946060, guid: d204d9d775a5ca3428173e158b5d414f, type: 3}
+    MinSpawnCount: 10
+    MaxSpawnCount: 15
+  SpawnRadius: 50
+  SpawnPointAmount: 2
+  SpawnBoxX: 3
+  SpawnBoxZ: 3
+  CreatureMask: 10
+  LandMask: 11
+  RayDistance: 10
+  SpawnedCrops: []
+--- !u!4 &1689702804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689702802}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.44, y: 4.83, z: -1.944032}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1977764642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1102,7 @@ MonoBehaviour:
   - {fileID: 3655761678155441803, guid: 1294f6060adb59f4db4875b9ab847d99, type: 3}
   - {fileID: 451453289931290390, guid: 358a3a6380ce61f4cabb5384657e294c, type: 3}
   - {fileID: 451453289931290390, guid: 358a3a6380ce61f4cabb5384657e294c, type: 3}
+  parentContainer: {fileID: 2038951442}
   margin: 10
   prefabSpacing: 3
   maxPrefabsPerRegion: 10
@@ -1038,6 +1131,37 @@ MonoBehaviour:
   redProbability: 0.2
   yellowProbability: 0.4
   grayProbability: 0.82
+--- !u!1 &2038951442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2038951443}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2038951443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038951442}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.733061, y: -4.3824396, z: 38.821865}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &144751341509971878
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1342,5 +1466,8 @@ SceneRoots:
   - {fileID: 184496998}
   - {fileID: 1113578814}
   - {fileID: 1508027574}
+  - {fileID: 2038951443}
+  - {fileID: 529677979}
   - {fileID: 132250496}
   - {fileID: 426062919}
+  - {fileID: 1689702804}

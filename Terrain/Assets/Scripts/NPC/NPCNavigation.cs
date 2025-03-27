@@ -9,8 +9,7 @@ public class NPCNavigation : MonoBehaviour
     public GameObject[] npcPrefab; 
     public LayerMask groundLayer;
     public LayerMask obstacleLayer; 
-    public float groundRaycastHeight = 100f;
-    public List<Vector3> crops = new List<Vector3>();//harvest position
+    //public float groundRaycastHeight = 100f;
     public float minMoveInterval = 3f;
     public float maxMoveInterval = 15f;
     public float stopTimeLimit = 5f;
@@ -19,9 +18,7 @@ public class NPCNavigation : MonoBehaviour
     public float linkSpeed = 0.6f;
     public float normalAcceleration = 8f;
     public float linkAcceleration = 2f;
-
     private List<GameObject> npcs = new List<GameObject>();
-
     void Update()
     {
         if (npcs == null || npcs.Count == 0)
@@ -97,21 +94,28 @@ public class NPCNavigation : MonoBehaviour
                 }
                 else if (npcManager.npcState == NPCManager.NPCState.Harvesting)
                 {
-                    if (!crops.Contains(npcController.harvestTargetPosition))
+                    if (agent.remainingDistance <= agent.stoppingDistance)
                     {
-                        npcManager.npcState = NPCManager.NPCState.Normal;
-                        SetRandomDestinationGlobal(agent);
+                        npcController.Movetocrop = true;
                     }
-                    else if (agent.remainingDistance <= agent.stoppingDistance)
+                    if (npcController.Movetocrop)
                     {
-                        StartCoroutine(HarvestCrop(npcManager, npcController));
+                        animator.SetBool("isWalking", false);
+                        animator.SetTrigger("Harvest");
+                        //StartCoroutine(HarvestCrop(npcManager, npcController));
+                    }
+                    else
+                    {
+                        animator.SetBool("isWalking", true);
                     }
                 }
             }
         }
     }
-    public void MoveToTarget(Vector3 target)
+    public void MoveToTarget(Vector3 target,GameObject thisnpc)
     {
+        NPCController npcController = thisnpc.GetComponent<NPCController>();
+        npcController.Movetocrop = false;
         foreach (GameObject npc in npcs)
         {
             if (npc == null) continue;
@@ -122,41 +126,22 @@ public class NPCNavigation : MonoBehaviour
             }
         }
     }
-    public Vector3? FindNearestHarvestableCrop(Vector3 npcPosition)
-    {
-        if (crops.Count == 0)
-            return null;
+ 
+   //IEnumerator HarvestCrop(NPCManager npcManager, NPCController npcController)
+   // {
+   //     Animator animator = npcController.GetComponent<Animator>();
 
-        Vector3 closestCrop = Vector3.zero;
-        float minDistance = float.MaxValue;
+   //     if (animator != null)
+   //     {
+   //         Debug.Log("Harvest animation triggered.");
+   //         animator.SetTrigger("Harvest");
+   //     }
 
-        foreach (Vector3 crop in crops)
-        {
-            float distance = Vector3.Distance(npcPosition, crop);
-            if (distance < minDistance)
-            {
-                closestCrop = crop;
-                minDistance = distance;
-            }
-        }
+   //     yield return new WaitForSeconds(1f);
 
-        return minDistance < float.MaxValue ? closestCrop : null;
-    }
-    IEnumerator HarvestCrop(NPCManager npcManager, NPCController npcController)
-    {
-        Animator animator = npcController.GetComponent<Animator>();
-
-        if (animator != null)
-        {
-            animator.SetTrigger("Harvest");
-        }
-
-        yield return new WaitForSeconds(3f);
-
-        crops.Remove(npcController.harvestTargetPosition); // 移除已收获作物
-        npcManager.npcState = NPCManager.NPCState.Normal;
-        SetRandomDestinationGlobal(npcController.GetComponent<NavMeshAgent>());
-    }
+   //     //npcManager.npcState = NPCManager.NPCState.Normal;
+   //     //SetRandomDestinationGlobal(npcController.GetComponent<NavMeshAgent>());
+   // }
 
     public IEnumerator SpawnNPCs(int count)
     {
@@ -323,6 +308,5 @@ public class NPCController : MonoBehaviour
     public float stopTime = 0;
     public float speed;
     public float acceleration;
-    public Vector3 harvestTargetPosition; // 目标作物的位置
-    public bool isHarvesting = false; // 是否正在收获
+    public bool Movetocrop;
 }
