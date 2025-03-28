@@ -22,8 +22,8 @@ public class Spawner : MonoBehaviour
     public int LandMask;
     public float RayDistance = 10f;
     protected List<Transform> Points = new List<Transform>();
-    private Dictionary<Transform, List<GameObject>> SpawnedCrops = new(); // 存储每个 Point 生成的作物
-    private Dictionary<Transform, NPCManager> AssignedHarvesters = new(); // 记录每个 Point 是否已分配收获 NPC
+    private Dictionary<Transform, List<GameObject>> SpawnedCrops = new(); // Crops of Point
+    private Dictionary<Transform, NPCManager> AssignedHarvesters = new(); // NPC of Point
     void Start()
     {
         SpawnPoint();
@@ -47,8 +47,8 @@ public class Spawner : MonoBehaviour
             //GameObject PointObj=Instantiate(new GameObject(), RandomPoint, Quaternion.identity);
             Transform pointTransform = PointObj.transform;
             Points.Add(pointTransform);
-            SpawnedCrops[pointTransform] = new List<GameObject>(); // 初始化
-            AssignedHarvesters[pointTransform] = null; // 还没有 NPC 负责      
+            SpawnedCrops[pointTransform] = new List<GameObject>(); 
+            AssignedHarvesters[pointTransform] = null; //No NPC     
         }
     }
     protected virtual void SpawnAnimals()
@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour
                     Quaternion Rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
                     //Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
                     GameObject crop = Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
-                    SpawnedCrops[point].Add(crop); // 记录 crop 归属于该 point
+                    SpawnedCrops[point].Add(crop); 
                 }   
             }
         }
@@ -82,7 +82,7 @@ public class Spawner : MonoBehaviour
                 Transform point = kvp.Key;
                 List<GameObject> crops = kvp.Value;
 
-                if (crops.Count > 0 && AssignedHarvesters[point] == null) // 该点还没有 NPC 负责
+                if (crops.Count > 0 && AssignedHarvesters[point] == null) 
                 {
                     bool allMature = true;
 
@@ -103,12 +103,12 @@ public class Spawner : MonoBehaviour
                         NPCManager npc = FindNearestNormalNPC();
                         if (npc != null)
                         {
-                            AssignedHarvesters[point] = npc; // 记录 NPC
+                            AssignedHarvesters[point] = npc; // Record NPC
                             npc.StartHarvesting(crops);
                         }
                         else
                         {
-                            StartCoroutine(WaitForAvailableNPC(point)); // 等待 NPC
+                            StartCoroutine(WaitForAvailableNPC(point)); // wait NPC
                         }
                     }
                 }

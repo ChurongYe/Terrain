@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8439978165979891818}
   - component: {fileID: 8704403132640173826}
   - component: {fileID: 2218227578586140270}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: rock_smallFlatA 1
   m_TagString: Prefab
   m_Icon: {fileID: 0}

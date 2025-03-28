@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 757407316670017577}
   - component: {fileID: 138526053949101721}
   - component: {fileID: 1331594665021455234}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: platform_grass
   m_TagString: Prefab
   m_Icon: {fileID: 0}

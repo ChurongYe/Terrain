@@ -47,6 +47,6 @@ public abstract class Plant : MonoBehaviour
     protected virtual void DisappearBeforeHarvest() 
     {
         if (Harvested)
-            Destroy(gameObject,2f);
+            Destroy(gameObject,1f);
     }
 }
