@@ -171,7 +171,7 @@ MonoBehaviour:
   TreeGenerate: {fileID: 1113578813}
   Tilemap: {fileID: 1508027573}
   NPCNavigation: {fileID: 426062918}
-  npccount: 1
+  npccount: 3
 --- !u!1 &184496991
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,13 +940,12 @@ MonoBehaviour:
     MinSpawnCount: 10
     MaxSpawnCount: 15
   SpawnRadius: 50
-  SpawnPointAmount: 2
+  SpawnPointAmount: 6
   SpawnBoxX: 3
   SpawnBoxZ: 3
   CreatureMask: 10
   LandMask: 11
   RayDistance: 10
-  SpawnedCrops: []
 --- !u!4 &1689702804
 Transform:
   m_ObjectHideFlags: 0

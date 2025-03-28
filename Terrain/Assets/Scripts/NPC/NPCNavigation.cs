@@ -19,6 +19,7 @@ public class NPCNavigation : MonoBehaviour
     public float normalAcceleration = 8f;
     public float linkAcceleration = 2f;
     private List<GameObject> npcs = new List<GameObject>();
+    private Dictionary<GameObject, Coroutine> wanderCoroutines = new Dictionary<GameObject, Coroutine>();
     void Update()
     {
         if (npcs == null || npcs.Count == 0)
@@ -51,6 +52,11 @@ public class NPCNavigation : MonoBehaviour
             {
                 if (npcManager.npcState == NPCManager. NPCState.Normal)
                 {
+                    if (!wanderCoroutines.ContainsKey(npc))
+                    {
+                        Coroutine wanderCoroutine = StartCoroutine(Wander(agent, animator));
+                        wanderCoroutines[npc] = wanderCoroutine;
+                    }
                     if (agent.isOnOffMeshLink)
                     {
                         agent.speed = npcController.speed * 0.5f;
@@ -83,7 +89,11 @@ public class NPCNavigation : MonoBehaviour
                         animator.SetBool("isWalking", speed > 0.1f);
                     }
                 }
-                else if (npcManager.npcState == NPCManager.NPCState.Resting)
+                else
+                {
+                    StopWandering(npc);
+                }
+                if (npcManager.npcState == NPCManager.NPCState.Resting)
                 {
                     agent.ResetPath();
                     if (animator != null)
@@ -94,7 +104,7 @@ public class NPCNavigation : MonoBehaviour
                 }
                 else if (npcManager.npcState == NPCManager.NPCState.Harvesting)
                 {
-                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
                     {
                         npcController.Movetocrop = true;
                     }
@@ -116,15 +126,20 @@ public class NPCNavigation : MonoBehaviour
     {
         NPCController npcController = thisnpc.GetComponent<NPCController>();
         npcController.Movetocrop = false;
-        foreach (GameObject npc in npcs)
+        NavMeshAgent agent = thisnpc.GetComponent<NavMeshAgent>();
+        if (agent != null)
         {
-            if (npc == null) continue;
-            NavMeshAgent agent = npc.GetComponent<NavMeshAgent>();
-            if (agent != null)
-            {
-                agent.SetDestination(target);
-            }
+            agent.SetDestination(target);
         }
+        //foreach (GameObject npc in npcs)
+        //{
+        //    if (npc == null) continue;
+        //    NavMeshAgent agent = npc.GetComponent<NavMeshAgent>();
+        //    if (agent != null)
+        //    {
+        //        agent.SetDestination(target);
+        //    }
+        //}
     }
  
    //IEnumerator HarvestCrop(NPCManager npcManager, NPCController npcController)
@@ -182,9 +197,11 @@ public class NPCNavigation : MonoBehaviour
                 npcController.acceleration = Random.Range(4f, 10f); 
 
                 NavMeshAgent agent = npc.GetComponent<NavMeshAgent>();
-                if (agent != null)
+                if (agent != null )
                 {
-                    StartCoroutine(Wander(agent, npc.GetComponent<Animator>()));
+                    Coroutine wanderCoroutine = StartCoroutine(Wander(agent, npc.GetComponent<Animator>()));
+                    wanderCoroutines[npc] = wanderCoroutine;
+                    //StartCoroutine(Wander(agent, npc.GetComponent<Animator>()));
                 }
             }
         }
@@ -264,7 +281,14 @@ public class NPCNavigation : MonoBehaviour
             SetRandomDestinationGlobal(agent);
         }
     }
-
+    void StopWandering(GameObject npc)
+    {
+        if (wanderCoroutines.ContainsKey(npc))
+        {
+            StopCoroutine(wanderCoroutines[npc]);
+            wanderCoroutines.Remove(npc);
+        }
+    }
     void SetRandomDestinationGlobal(NavMeshAgent agent)
     {
         NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();

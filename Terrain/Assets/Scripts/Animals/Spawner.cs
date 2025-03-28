@@ -22,12 +22,13 @@ public class Spawner : MonoBehaviour
     public int LandMask;
     public float RayDistance = 10f;
     protected List<Transform> Points = new List<Transform>();
-    public List<GameObject> SpawnedCrops = new List<GameObject>(); // 存储当前 Spawner 生成的所有农作物
+    private Dictionary<Transform, List<GameObject>> SpawnedCrops = new(); // 存储每个 Point 生成的作物
+    private Dictionary<Transform, NPCManager> AssignedHarvesters = new(); // 记录每个 Point 是否已分配收获 NPC
     void Start()
     {
         SpawnPoint();
         SpawnAnimals();
-
+        StartCoroutine(CheckForMatureCrops());
     }
     private void SpawnPoint()
     {
@@ -44,7 +45,10 @@ public class Spawner : MonoBehaviour
             GameObject PointObj = new GameObject("SpawnPoint_" + i);
             PointObj.transform.position = RandomPoint;
             //GameObject PointObj=Instantiate(new GameObject(), RandomPoint, Quaternion.identity);
-            Points.Add(PointObj.transform);         
+            Transform pointTransform = PointObj.transform;
+            Points.Add(pointTransform);
+            SpawnedCrops[pointTransform] = new List<GameObject>(); // 初始化
+            AssignedHarvesters[pointTransform] = null; // 还没有 NPC 负责      
         }
     }
     protected virtual void SpawnAnimals()
@@ -64,48 +68,74 @@ public class Spawner : MonoBehaviour
                     Quaternion Rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
                     //Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
                     GameObject crop = Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
-                    SpawnedCrops.Add(crop);
+                    SpawnedCrops[point].Add(crop); // 记录 crop 归属于该 point
                 }   
             }
         }
-        StartCoroutine(CheckForMatureCrops());
     }
     private IEnumerator CheckForMatureCrops()
     {
         while (true)
         {
-            if (SpawnedCrops.Count > 0)
+            foreach (var kvp in SpawnedCrops)
             {
-                bool allMature = true;
-                foreach (GameObject crop in SpawnedCrops)
+                Transform point = kvp.Key;
+                List<GameObject> crops = kvp.Value;
+
+                if (crops.Count > 0 && AssignedHarvesters[point] == null) // 该点还没有 NPC 负责
                 {
-                    Crop thiscrop = crop.GetComponent<Crop>();
-                    if (thiscrop != null && !thiscrop.IsMature)
+                    bool allMature = true;
+
+                    foreach (GameObject crop in crops)
                     {
-                        allMature = false;
-                        break;
+                        Crop thiscrop = crop.GetComponent<Crop>();
+                        if (thiscrop != null && !thiscrop.IsMature)
+                        {
+                            allMature = false;
+                            break;
+                        }
+                    }
+
+                    if (allMature)
+                    {
+                        //Debug.Log($"[Spawner] {point.name} 下所有作物成熟，准备收获！");
+
+                        NPCManager npc = FindNearestNormalNPC();
+                        if (npc != null)
+                        {
+                            AssignedHarvesters[point] = npc; // 记录 NPC
+                            npc.StartHarvesting(crops);
+                        }
+                        else
+                        {
+                            StartCoroutine(WaitForAvailableNPC(point)); // 等待 NPC
+                        }
                     }
                 }
-
-                if (allMature)
-                {
-                    Debug.Log(" need to harvesting");
-                    AssignNPCToHarvest(); // 让 NPC 收获
-                }
             }
-            yield return new WaitForSeconds(2f); // 每 2 秒检查一次
+
+            yield return new WaitForSeconds(2f);
         }
     }
-    private void AssignNPCToHarvest()
+    private IEnumerator WaitForAvailableNPC(Transform point)
     {
-        NPCManager nearestNPC = FindNearestNormalNPC();
-        if (nearestNPC != null)
+        while (FindNearestNormalNPC() == null)
         {
-            nearestNPC.StartHarvesting(SpawnedCrops);
+            yield return new WaitForSeconds(3f);
         }
-        else
+        AssignNPCToHarvest(point);
+    }
+    private void AssignNPCToHarvest(Transform point)
+    {
+        if (AssignedHarvesters[point] == null)
         {
-            StartCoroutine(WaitForAvailableNPC()); // 等待有 NPC 变回 Normal 状态
+            NPCManager npc = FindNearestNormalNPC();
+            if (npc != null)
+            {
+                AssignedHarvesters[point] = npc;
+                npc.StartHarvesting(SpawnedCrops[point]);
+                Debug.Log($"[Spawner] 分配 NPC {npc.name} 到 {point.name} 进行收割");
+            }
         }
     }
     private NPCManager FindNearestNormalNPC()
@@ -127,14 +157,6 @@ public class Spawner : MonoBehaviour
             }
         }
         return nearestNPC;
-    }
-    private IEnumerator WaitForAvailableNPC()
-    {
-        while (FindNearestNormalNPC() == null)
-        {
-            yield return new WaitForSeconds(3f);
-        }
-        AssignNPCToHarvest(); // 重新尝试分配 NPC
     }
     private float CheckLandHeight(Vector3 SpawnPoint)
     {

@@ -12,8 +12,6 @@ public class NPCManager : MonoBehaviour
     public float harvestCheckInterval = 5f; // 检查是否进入 Harvesting 状态的间隔
     public float harvestProbability = 0.8f; // 80% 概率
     public NPCNavigation npcNavigation;
-    public NPCController NPCController;
-    public (Vector2, GameObject) cropInfor;
     private void Start()
     {
         npcNavigation = FindObjectOfType<NPCNavigation>();
@@ -88,8 +86,8 @@ public class NPCManager : MonoBehaviour
         {
             if (crop == null) continue;
             Crop thiscrop = crop.GetComponent<Crop>();
-            //Vector3 targetPos = thiscrop.HarvestPoint.position ;
-            Vector3 targetPos = crop.transform.position;
+            Vector3 targetPos = thiscrop.HarvestPoint.position ;
+            //Vector3 targetPos = crop.transform.position;
             npcNavigation.MoveToTarget(targetPos, this.gameObject);
 
             while (!this.gameObject.GetComponent<NPCController>().Movetocrop) // 等待 NPC 到达目标位置
@@ -101,7 +99,6 @@ public class NPCManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f); // 等待一小段时间，模拟收获
         }
-
         npcState = NPCState.Normal; // 收获完成，恢复 Normal 状态
     }
     //private void CropInfor(Vector2 pos, GameObject crop)
@@ -113,13 +110,13 @@ public class NPCManager : MonoBehaviour
         if (npcState == NPCState.Normal)
         {
             npcState = NPCState.Resting;
-            Debug.Log("NPC ：" + npcState);
+            //Debug.Log("NPC ：" + npcState);
 
         }
         else if (npcState == NPCState.Resting)
         {
             npcState = NPCState.Normal;
-            Debug.Log("NPC ：" + npcState);
+            //Debug.Log("NPC ：" + npcState);
         }
         //Debug.Log("NPC ：" + npcState);
     }

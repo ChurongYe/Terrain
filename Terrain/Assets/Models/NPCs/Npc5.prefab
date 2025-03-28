@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2818234165807893412}
   - component: {fileID: 6326013581858964305}
   - component: {fileID: 4850419173963383087}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Npc5
   m_TagString: Prefab
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6670712449830944430}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8225591875645295655}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: leg-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 376241290666363204}
   - component: {fileID: 4120667601950496882}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: body-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1943259764058678136}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: leg-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7532173665408194208}
   - component: {fileID: 3672392287877104874}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: head-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5310025365756218150}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: arm-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5202927313758037390}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6050280721945632871}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: arm-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8867061858102870424}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

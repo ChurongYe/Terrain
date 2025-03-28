@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7574227864163255240}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: arm-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1960115655533814680}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3656569075631568111}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: arm-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 972462945179719831}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066906026808778320}
   - component: {fileID: 8598097790451782960}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: body-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3206385057159717516}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: leg-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 1990562635298533797}
   - component: {fileID: 3028825555824976186}
   - component: {fileID: 5285154608362572746}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Npc2
   m_TagString: Prefab
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5270380842803917298}
   - component: {fileID: 9014309377226119713}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: head-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 256489424961856151}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8042230970512299336}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: leg-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}

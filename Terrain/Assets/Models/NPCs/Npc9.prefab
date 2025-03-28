@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 329363419070259347}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: arm-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3422168953912110176}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: leg-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3291479033741687108}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6641388171386086418}
   - component: {fileID: 8193868699881790383}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: head-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4173458094027874278}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: arm-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 2954433799563160117}
   - component: {fileID: 1286389021014960070}
   - component: {fileID: 7722381905915439423}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Npc9
   m_TagString: Prefab
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4314628588145689078}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: leg-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7980247851132737567}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 350207721790139142}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8711080641696284674}
   - component: {fileID: 1318547698267521655}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: body-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
