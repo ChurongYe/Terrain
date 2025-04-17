@@ -45,6 +45,29 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        foreach (FlockAgent agent in agents)
+        {
+            List<Transform> context = GetNearbyObjects(agent);
+            Vector3 move = behavior.CalculateMove(agent, context, this);
+            move *= driveFactor;
+            if (move.sqrMagnitude > squareMaxSpeed)
+            {
+                move = move.normalized * maxSpeed;
+            }
+            agent.Move(move);
+        }
+    }
+    List<Transform> GetNearbyObjects(FlockAgent agent)
+    {
+        List<Transform> context = new List<Transform>();
+        Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, neighbourRadius);
+        foreach (Collider collider in contextColliders)
+        {
+            if (collider != agent.AgentCollider)
+            {
+                context.Add(collider.transform);
+            }
+        }
+        return context;
     }
 }
