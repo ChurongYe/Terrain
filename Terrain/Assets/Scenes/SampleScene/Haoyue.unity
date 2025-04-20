@@ -190,7 +190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &27660011
 Transform:
   m_ObjectHideFlags: 0
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 270254077}
   - component: {fileID: 270254076}
   - component: {fileID: 270254080}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &339765331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2396,11 +2396,15 @@ MonoBehaviour:
     MinSpawnCount: 10
     MaxSpawnCount: 15
   SpawnRadius: 10
-  SpawnPointAmount: 6
+  SpawnPointAmount: 5
   SpawnBoxX: 3
   SpawnBoxZ: 3
-  CreatureMask: 10
-  LandMask: 11
+  CreatureMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LandMask:
+    serializedVersion: 2
+    m_Bits: 0
   RayDistance: 10
 --- !u!1 &1326892317
 GameObject:
@@ -2418,7 +2422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1326892318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,11 +2446,15 @@ MonoBehaviour:
     MinSpawnCount: 10
     MaxSpawnCount: 15
   SpawnRadius: 10
-  SpawnPointAmount: 6
+  SpawnPointAmount: 5
   SpawnBoxX: 3
   SpawnBoxZ: 3
-  CreatureMask: 10
-  LandMask: 11
+  CreatureMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  LandMask:
+    serializedVersion: 2
+    m_Bits: 64
   RayDistance: 10
 --- !u!4 &1326892319
 Transform:
@@ -2521,11 +2529,15 @@ MonoBehaviour:
     MinSpawnCount: 5
     MaxSpawnCount: 10
   SpawnRadius: 30
-  SpawnPointAmount: 6
+  SpawnPointAmount: 5
   SpawnBoxX: 3
   SpawnBoxZ: 2
-  CreatureMask: 10
-  LandMask: 0
+  CreatureMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LandMask:
+    serializedVersion: 2
+    m_Bits: 0
   RayDistance: 10
 --- !u!1 &1452292750
 GameObject:

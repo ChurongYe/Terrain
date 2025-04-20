@@ -18,8 +18,9 @@ public class Spawner : MonoBehaviour
     public int SpawnPointAmount=5;//
     public float SpawnBoxX = 5f;
     public float SpawnBoxZ = 4f;
-    public int CreatureMask;
-    public int LandMask;
+    public LayerMask CreatureMask;
+    //public int LandMask;
+    public LayerMask LandMask;
     public float RayDistance = 10f;
     protected List<Transform> Points = new List<Transform>();
     private Dictionary<Transform, List<GameObject>> SpawnedCrops = new(); // Crops of Point
@@ -62,7 +63,7 @@ public class Spawner : MonoBehaviour
             for (int i = 0; i < SpawnCount; i++)
             {
                 Vector3 SpawnPointInBox = point.position + new Vector3(Random.Range(-SpawnBoxX, SpawnBoxX), 0, Random.Range(-SpawnBoxZ, SpawnBoxZ));
-                if (!Physics.CheckBox(point.position, new Vector3(SpawnBoxX, Mathf.Min(SpawnBoxX, SpawnBoxZ), SpawnBoxZ)*0.5f, Quaternion.identity, 10))
+                if (!Physics.CheckBox(point.position, new Vector3(SpawnBoxX, Mathf.Min(SpawnBoxX, SpawnBoxZ), SpawnBoxZ)*0.5f, Quaternion.identity, CreatureMask))//avoid overlap in spawner box
                 {
                     SpawnPointInBox.y = CheckLandHeight(SpawnPointInBox);
                     Quaternion Rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
@@ -158,12 +159,14 @@ public class Spawner : MonoBehaviour
         }
         return nearestNPC;
     }
-    private float CheckLandHeight(Vector3 SpawnPoint)
+    private float CheckLandHeight(Vector3 SpawnPoint)//check spawner point of single objects(on the specfic layer)
     {
         RaycastHit HitInfo;
         bool Hit = Physics.Raycast(SpawnPoint, Vector3.down, out HitInfo,20f,LandMask);
         if (!Hit)
+        {
             return SpawnPoint.y;
+        }
         else
             return HitInfo.point.y;
     }
