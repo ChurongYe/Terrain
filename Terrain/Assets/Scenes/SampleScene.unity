@@ -943,8 +943,12 @@ MonoBehaviour:
   SpawnPointAmount: 6
   SpawnBoxX: 3
   SpawnBoxZ: 3
-  CreatureMask: 10
-  LandMask: 11
+  CreatureMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  LandMask:
+    serializedVersion: 2
+    m_Bits: 64
   RayDistance: 10
 --- !u!4 &1689702804
 Transform:
