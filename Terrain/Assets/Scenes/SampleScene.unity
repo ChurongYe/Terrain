@@ -174,6 +174,7 @@ MonoBehaviour:
   NPCNavigation: {fileID: 426062918}
   npccount: 5
   plantSpawner: {fileID: 1689702803}
+  seasonchange: {fileID: 132250498}
 --- !u!114 &132250498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,8 +187,131 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8af4ddbd7a157c4196ac9e8287380b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToEdit: []
-  newMaterial: {fileID: 2100000, guid: 25a98eee5486f7b4297d764aaa1fc2b0, type: 2}
+  autumnGradient:
+    serializedVersion: 2
+    key0: {r: 0.6289307, g: 0.3481318, b: 0.14833261, a: 1}
+    key1: {r: 1, g: 0.55, b: 0, a: 1}
+    key2: {r: 1, g: 0.27, b: 0, a: 1}
+    key3: {r: 0.55, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 514
+    ctime1: 17091
+    ctime2: 46132
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 18761
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 3
+  fallmaterial: {fileID: 2100000, guid: 25a98eee5486f7b4297d764aaa1fc2b0, type: 2}
+  Springmaterial:
+    serializedVersion: 2
+    key0: {r: 0.66352195, g: 1, b: 0.8127132, a: 1}
+    key1: {r: 0.5429694, g: 0.9433962, b: 0.16316585, a: 1}
+    key2: {r: 0.27058825, g: 0.6392157, b: 0.6392157, a: 1}
+    key3: {r: 0.10490081, g: 0.8553459, b: 0.54529965, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 19404
+    ctime2: 37265
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 36880
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 3
+  springmaterial: {fileID: 2100000, guid: 0fe0d3893ca5e464c8ca8f7a31c359ee, type: 2}
+  Summermaterial:
+    serializedVersion: 2
+    key0: {r: 0.027253544, g: 0.66666657, b: 0.18012087, a: 1}
+    key1: {r: 0.050140332, g: 0.7106918, b: 0.011174328, a: 1}
+    key2: {r: 0.14853814, g: 0.52201253, b: 0.011490755, a: 0}
+    key3: {r: 0, g: 0.4528302, b: 0.089034066, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 17862
+    ctime2: 40092
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  summermaterial: {fileID: 2100000, guid: 0a1285c9431b2a541bc1b2fa9069426a, type: 2}
+  Winterterial:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  wintermaterial: {fileID: 2100000, guid: 5f9edeaf4b2756e4ca01df691c6f82b0, type: 2}
+  transitionDuration: 3
 --- !u!1 &184496991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1626,6 @@ SceneRoots:
   - {fileID: 1508027574}
   - {fileID: 2038951443}
   - {fileID: 529677979}
-  - {fileID: 132250496}
   - {fileID: 426062919}
   - {fileID: 1986904416700064940}
+  - {fileID: 132250496}

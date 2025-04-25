@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public NPCNavigation NPCNavigation;
     public int npccount;
     public PlantSpawner plantSpawner;
+    public Seasonchange seasonchange;
     void Update()
     {
         Clickmouse();
@@ -42,7 +43,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         yield return new WaitUntil(() => navMeshSurface.navMeshData != null);
         yield return StartCoroutine(TreeGenerate.GenerateTrees());
-        yield return StartCoroutine(NPCNavigation.SpawnNPCs(npccount));
+        yield return StartCoroutine(TreeGenerate.GenerateTrees());
+        yield return StartCoroutine(seasonchange.StartColor());
         yield return StartCoroutine(plantSpawner.PlantGenerate());
 
     }
