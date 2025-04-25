@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 5258790305953941754}
   m_Layer: 6
   m_Name: ground_riverBendBank
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

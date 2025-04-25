@@ -1734,7 +1734,7 @@ GameObject:
   - component: {fileID: 6795921861291148690}
   m_Layer: 6
   m_Name: ground_riverCross
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

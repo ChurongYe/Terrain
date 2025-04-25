@@ -25,26 +25,32 @@ public class Spawner : MonoBehaviour
     protected List<Transform> Points = new List<Transform>();
     private Dictionary<Transform, List<GameObject>> SpawnedCrops = new(); // Crops of Point
     private Dictionary<Transform, NPCManager> AssignedHarvesters = new(); // NPC of Point
+    private List<Vector3> diPositions = new List<Vector3>();
+    public float Upset = 1f;
     void Start()
+    {
+        StartCoroutine(CheckForMatureCrops());
+    }
+    public IEnumerator PlantGenerate()
     {
         SpawnPoint();
         SpawnAnimals();
-        StartCoroutine(CheckForMatureCrops());
+        yield return null;
+    }
+    public void AddDi( Vector3 diposition)
+    {
+        diPositions.Add(diposition);
     }
     private void SpawnPoint()
     {
+        SpawnPointAmount = diPositions.Count;
         SpawnedCrops.Clear();
+        Points.Clear();//////
         for (int i = 0; i < SpawnPointAmount; i++)
         {
-            Vector3 RandomPoint = transform.position +
-                new Vector3
-                (
-                    Random.Range(-SpawnRadius, SpawnRadius),
-                0,
-                Random.Range(-SpawnRadius, SpawnRadius)
-                );
+            Vector3 pointPos = diPositions[i];
             GameObject PointObj = new GameObject("SpawnPoint_" + i);
-            PointObj.transform.position = RandomPoint;
+            PointObj.transform.position = pointPos;
             //GameObject PointObj=Instantiate(new GameObject(), RandomPoint, Quaternion.identity);
             Transform pointTransform = PointObj.transform;
             Points.Add(pointTransform);
@@ -65,7 +71,7 @@ public class Spawner : MonoBehaviour
                 Vector3 SpawnPointInBox = point.position + new Vector3(Random.Range(-SpawnBoxX, SpawnBoxX), 0, Random.Range(-SpawnBoxZ, SpawnBoxZ));
                 if (!Physics.CheckBox(point.position, new Vector3(SpawnBoxX, Mathf.Min(SpawnBoxX, SpawnBoxZ), SpawnBoxZ)*0.5f, Quaternion.identity, CreatureMask))//avoid overlap in spawner box
                 {
-                    SpawnPointInBox.y = CheckLandHeight(SpawnPointInBox);
+                    SpawnPointInBox.y = CheckLandHeight(SpawnPointInBox)+ Upset;
                     Quaternion Rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
                     //Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
                     GameObject crop = Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
@@ -161,14 +167,20 @@ public class Spawner : MonoBehaviour
     }
     private float CheckLandHeight(Vector3 SpawnPoint)//check spawner point of single objects(on the specfic layer)
     {
-        RaycastHit HitInfo;
-        bool Hit = Physics.Raycast(SpawnPoint, Vector3.down, out HitInfo,20f,LandMask);
-        if (!Hit)
-        {
+        RaycastHit[] hits = Physics.RaycastAll(SpawnPoint, Vector3.up, 1000f, LandMask);
+
+        if (hits.Length == 0)
             return SpawnPoint.y;
+
+        float topY = SpawnPoint.y;
+        foreach (var hit in hits)
+        {
+            if (hit.point.y > topY)
+            {
+                topY = hit.point.y;
+            }
         }
-        else
-            return HitInfo.point.y;
+        return topY;
     }
     //    foreach (var AnimalSettings in Animals)
     //    {

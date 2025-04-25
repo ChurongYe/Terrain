@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 3637227562888000817}
   m_Layer: 6
   m_Name: ground_riverCorner
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

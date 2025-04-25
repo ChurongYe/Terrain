@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 168369394843966430}
   m_Layer: 6
   m_Name: ground_riverSideOpen
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public Tilemap Tilemap;
     public NPCNavigation NPCNavigation;
     public int npccount;
+    public PlantSpawner plantSpawner;
     void Update()
     {
         Clickmouse();
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => navMeshSurface.navMeshData != null);
         yield return StartCoroutine(TreeGenerate.GenerateTrees());
         yield return StartCoroutine(NPCNavigation.SpawnNPCs(npccount));
+        yield return StartCoroutine(plantSpawner.PlantGenerate());
 
     }
 }
