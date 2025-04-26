@@ -33,19 +33,44 @@ public class Spawner : MonoBehaviour
     }
     public IEnumerator PlantGenerate()
     {
-        SpawnPoint();
-        SpawnAnimals();
-        yield return null;
+        yield return StartCoroutine(ClearAllSpawnedObjects());
     }
     public void AddDi( Vector3 diposition)
     {
         diPositions.Add(diposition);
     }
-    private void SpawnPoint()
+    public IEnumerator Clear()
+    {
+        diPositions.Clear();
+        yield return null;
+    }
+
+    public IEnumerator ClearAllSpawnedObjects()
+    {
+        foreach (var kvp in SpawnedCrops)
+        {
+            foreach (var crop in kvp.Value)
+            {
+                if (crop != null)
+                    Destroy(crop);
+            }
+        }
+
+        foreach (var point in Points)
+        {
+            if (point != null)
+                Destroy(point.gameObject);
+        }
+
+        SpawnedCrops.Clear();
+        AssignedHarvesters.Clear();
+        Points.Clear();
+        yield return SpawnPoint();
+        yield return SpawnAnimals();
+    }
+    private IEnumerator SpawnPoint()
     {
         SpawnPointAmount = diPositions.Count;
-        SpawnedCrops.Clear();
-        Points.Clear();//////
         for (int i = 0; i < SpawnPointAmount; i++)
         {
             Vector3 pointPos = diPositions[i];
@@ -57,8 +82,9 @@ public class Spawner : MonoBehaviour
             SpawnedCrops[pointTransform] = new List<GameObject>(); 
             AssignedHarvesters[pointTransform] = null; //No NPC     
         }
+        yield return null;
     }
-    protected virtual void SpawnAnimals()
+    protected virtual IEnumerator SpawnAnimals()
     {
         foreach (var point in Points)
         {
@@ -79,6 +105,7 @@ public class Spawner : MonoBehaviour
                 }   
             }
         }
+        yield return null;
     }
     private IEnumerator CheckForMatureCrops()
     {
@@ -130,10 +157,19 @@ public class Spawner : MonoBehaviour
         {
             yield return new WaitForSeconds(3f);
         }
-        AssignNPCToHarvest(point);
+        if (point != null && AssignedHarvesters.ContainsKey(point))
+        {
+            AssignNPCToHarvest(point);
+        }
     }
     private void AssignNPCToHarvest(Transform point)
     {
+        if (!AssignedHarvesters.ContainsKey(point))
+        {
+            Debug.LogWarning($"[Spawner] AssignedHarvesters 中找不到 {point.name}，无法分配收割！");
+            return;
+        }
+
         if (AssignedHarvesters[point] == null)
         {
             NPCManager npc = FindNearestNormalNPC();

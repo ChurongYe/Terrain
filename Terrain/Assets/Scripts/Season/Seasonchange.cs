@@ -15,6 +15,7 @@ public class Seasonchange : MonoBehaviour
     public Gradient Winterterial;
     public Material wintermaterial;
     public float transitionDuration = 3f; // 颜色过渡时长（秒）
+    public bool Ifrefresh;
     public enum Season
     {
         Spring,
@@ -25,6 +26,7 @@ public class Seasonchange : MonoBehaviour
     private Season currentSeason = Season.Spring;
     public IEnumerator StartColor()
     {
+        Ifrefresh = true;
         objectsToEdit = GameObject.FindGameObjectsWithTag("Prefab")
           .Concat(GameObject.FindGameObjectsWithTag("tile"))
           .ToList();
@@ -60,12 +62,14 @@ public class Seasonchange : MonoBehaviour
                 }
             }
         }
+        Ifrefresh = false;
         yield return StartCoroutine(ChangeColor());
     }
     private IEnumerator ChangeColor()
     {
         while (true)
         {
+            if (Ifrefresh) continue ;
             switch (currentSeason)
             {
                 case Season.Spring:
@@ -95,6 +99,7 @@ public class Seasonchange : MonoBehaviour
     {
         foreach (GameObject obj in objectsToEdit)
         {
+            if (obj == null) continue;
             Renderer renderer = obj.GetComponent<Renderer>();
             if (renderer == null) continue;
 
@@ -126,6 +131,7 @@ public class Seasonchange : MonoBehaviour
     {
         foreach (GameObject obj in objectsToEdit)
         {
+            if (obj == null) continue;
             Renderer renderer = obj.GetComponent<Renderer>();
             if (renderer == null) continue;
 
@@ -156,6 +162,7 @@ public class Seasonchange : MonoBehaviour
     {
         foreach (GameObject obj in objectsToEdit)
         {
+            if (obj == null) continue;
             Renderer renderer = obj.GetComponent<Renderer>();
             if (renderer == null) continue;
 
@@ -186,6 +193,7 @@ public class Seasonchange : MonoBehaviour
     {
         foreach (GameObject obj in objectsToEdit)
         {
+            if (obj == null) continue;
             Renderer renderer = obj.GetComponent<Renderer>();
             if (renderer == null) continue;
 
