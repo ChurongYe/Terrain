@@ -12,30 +12,34 @@ public class GameManager : MonoBehaviour
     public NPCNavigation NPCNavigation;
     public int npccount;
     public PlantSpawner plantSpawner;
-    void Update()
+    public Seasonchange seasonchange;
+    void Start()
     {
         Clickmouse();
-        if (Input.GetMouseButtonDown(1))
-        {
-           StartCoroutine(TreeGenerate.GenerateTrees());
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //   StartCoroutine(TreeGenerate.GenerateTrees());
+        //}
     }
 
-    private void Clickmouse()
+    public void Clickmouse()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Voronoi.seed = Random.Range(0, int.MaxValue);
+        Voronoi.seed = Random.Range(0, int.MaxValue);
+        StartCoroutine(BakeNavMeshAndPause());
 
-            StartCoroutine(BakeNavMeshAndPause());
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Voronoi.seed = Random.Range(0, int.MaxValue);
+
+        //    StartCoroutine(BakeNavMeshAndPause());
+        //}
     }
 
 
     private IEnumerator BakeNavMeshAndPause()
     {
         Time.timeScale = 0f;
-
+        yield return StartCoroutine(plantSpawner.Clear());
         yield return StartCoroutine(Voronoi.GenerateTexture());
         yield return StartCoroutine(Tilemap.TileGenerate());
         navMeshSurface.BuildNavMesh();
@@ -44,6 +48,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(TreeGenerate.GenerateTrees());
         yield return StartCoroutine(NPCNavigation.SpawnNPCs(npccount));
         yield return StartCoroutine(plantSpawner.PlantGenerate());
+        yield return StartCoroutine(seasonchange.StartColor());
 
     }
 }
