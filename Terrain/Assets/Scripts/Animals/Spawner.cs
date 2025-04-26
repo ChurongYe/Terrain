@@ -203,7 +203,7 @@ public class Spawner : MonoBehaviour
     }
     private float CheckLandHeight(Vector3 SpawnPoint)//check spawner point of single objects(on the specfic layer)
     {
-        RaycastHit[] hits = Physics.RaycastAll(SpawnPoint, Vector3.up, 1000f, LandMask);
+        RaycastHit[] hits = Physics.RaycastAll(SpawnPoint, Vector3.down, 1000f, LandMask);
 
         if (hits.Length == 0)
             return SpawnPoint.y;
