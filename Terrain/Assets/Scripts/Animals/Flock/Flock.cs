@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
+    public LayerMask animalLayer;
     public FlockAgent agentPrefab;
     List<FlockAgent> agents = new List<FlockAgent>();
     public FlockBehavior behavior;
@@ -36,9 +37,21 @@ public class Flock : MonoBehaviour
         squareAvoidanceRadius = squareNeighbourRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
         for (int i = 0; i < startingCount; i++)
         {
-            FlockAgent newAgent = Instantiate(agentPrefab, Random.insideUnitSphere * startingCount * AgentDensity, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
-            newAgent.name = "Agent" + i;
-            agents.Add(newAgent);
+            Vector3 randomPos = Random.insideUnitSphere * startingCount * AgentDensity;
+            randomPos.y = 10f; // 从空中往下射线
+            if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit, 20f, animalLayer))
+            {
+                Vector3 spawnPos = hit.point;
+                spawnPos.y = hit.point.y + 0.35f;
+                //FlockAgent newAgent = Instantiate(agentPrefab, Random.insideUnitSphere * startingCount * AgentDensity, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
+                FlockAgent newAgent = Instantiate(agentPrefab, spawnPos, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
+                newAgent.name = "Agent" + i;
+                agents.Add(newAgent);
+            }
+            else
+            {
+                Debug.LogWarning($"Agent {i} 找不到地面，跳过生成");
+            }
         }
     }
 
@@ -54,6 +67,7 @@ public class Flock : MonoBehaviour
             {
                 move = move.normalized * maxSpeed;
             }
+            move.y = 0;//
             agent.Move(move);
         }
     }
