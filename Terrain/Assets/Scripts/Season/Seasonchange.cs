@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+
 
 public class Seasonchange : MonoBehaviour
 {
-    private List<GameObject> objectsToEdit; // 拖入你要修改的 GameObjects
+    private List<GameObject> objectsToEdit; // 
     public Gradient autumnGradient; //Fall
     public Material fallmaterial;
     public Gradient Springmaterial;
     public Material springmaterial;
     public Gradient Summermaterial;
     public Material summermaterial;
-    public Gradient Winterterial;
+    //public Gradient Winterterial;
     public Material wintermaterial;
-    public float transitionDuration = 3f; // 颜色过渡时长（秒）
+    public Material wintermaterial2;
+    public float transitionDuration = 3f; // color change time
+    public float seasonDuration = 3f;// season change time;
     public bool Ifrefresh;
+    public Shader shader;
     public enum Season
     {
         Spring,
@@ -56,8 +63,17 @@ public class Seasonchange : MonoBehaviour
                     }
                     else
                     {
-                        Color targetColor = Springmaterial.Evaluate(Random.Range(0f, 1f));
-                        materials[i].color = targetColor;
+                        if (materials[i].shader != Shader.Find("Universal Render Pipeline/Lit"))
+                        {
+                            materials[i].shader = Shader.Find("Universal Render Pipeline/Lit");
+                            Color targetColor = Springmaterial.Evaluate(Random.Range(0f, 1f));
+                            materials[i].color = targetColor;
+                        }
+                        else
+                        {
+                            Color targetColor = Springmaterial.Evaluate(Random.Range(0f, 1f));
+                            materials[i].color = targetColor;
+                        }
                     }
                 }
             }
@@ -88,11 +104,12 @@ public class Seasonchange : MonoBehaviour
                     break;
                 case Season.Winter:
                     StartWinterTransition(objectsToEdit);
+                    yield return new WaitForSeconds(transitionDuration);
                     currentSeason = Season.Spring;
                     break;
             }
 
-            yield return new WaitForSeconds(transitionDuration + 2f); // 留出时间观察过渡
+            yield return new WaitForSeconds(transitionDuration + seasonDuration);
         }
     }
     void StartSpringTransition(List<GameObject> objectsToEdit)
@@ -119,6 +136,7 @@ public class Seasonchange : MonoBehaviour
                     }
                     else
                     {
+                        materials[i].shader = Shader.Find("Universal Render Pipeline/Lit");
                         Color targetColor = Springmaterial.Evaluate(Random.Range(0f, 1f));
                         StartCoroutine(LerpColor(materials[i], materials[i].color, targetColor, transitionDuration));
                     }
@@ -189,6 +207,7 @@ public class Seasonchange : MonoBehaviour
             }
         }
     }
+
     void StartWinterTransition(List<GameObject> objectsToEdit)
     {
         foreach (GameObject obj in objectsToEdit)
@@ -201,25 +220,58 @@ public class Seasonchange : MonoBehaviour
 
             for (int i = 0; i < materials.Length; i++)
             {
-                if (materials[i].name.Contains("leafsGreen") || materials[i].name.Contains("leafsDark") || materials[i].name.Contains("grass"))
+                if (materials[i].name.Contains("leafsGreen") || materials[i].name.Contains("leafsDark")
+                    || materials[i].name.Contains("grass"))
                 {
                     if (materials[i].name.Contains("grass"))
                     {
                         if (wintermaterial != null)
                         {
                             Color targetColor = wintermaterial.color;
-                            StartCoroutine(LerpColor(materials[i], materials[i].color, targetColor, transitionDuration));
+                            StartCoroutine(LerpColor(materials[i], materials[i].color, targetColor, transitionDuration + 2f));
                         }
                     }
                     else
                     {
-                        Color targetColor = Winterterial.Evaluate(Random.Range(0f, 1f));
-                        StartCoroutine(LerpColor(materials[i], materials[i].color, targetColor, transitionDuration));
+                        if (wintermaterial2 != null)
+                        {
+                            Color targetColor = wintermaterial2.color;
+                            StartCoroutine(LerpThenSnow(materials[i], materials[i].color, targetColor, transitionDuration));
+                        }
                     }
                 }
             }
         }
 
+    }
+    private IEnumerator LerpThenSnow(Material material, Color startColor, Color targetColor, float duration)
+    {
+        yield return StartCoroutine(LerpColor(material, startColor, targetColor, duration));
+        yield return StartCoroutine(TreeSnow(material));
+    }
+    IEnumerator TreeSnow(Material material)
+    {
+        material.shader = shader;
+        //string[] propertyNames = ShaderUtil.GetPropertyNames(shader);
+
+        if (material.HasProperty("threshold"))
+        {
+
+            StartCoroutine(LerpSnowThreshold(material, 1f, 0.1f, transitionDuration));
+        }
+        yield return null;
+    }
+    private IEnumerator LerpSnowThreshold(Material material, float startValue, float endValue, float duration)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            float value = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
+            material.SetFloat("threshold", value);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        material.SetFloat("threshold", endValue);
     }
     private IEnumerator LerpColor(Material mat, Color startColor, Color endColor, float duration)
     {

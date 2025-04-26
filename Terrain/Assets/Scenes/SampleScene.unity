@@ -252,18 +252,18 @@ MonoBehaviour:
   Summermaterial:
     serializedVersion: 2
     key0: {r: 0.027253544, g: 0.66666657, b: 0.18012087, a: 1}
-    key1: {r: 0.050140332, g: 0.7106918, b: 0.011174328, a: 1}
-    key2: {r: 0.14853814, g: 0.52201253, b: 0.011490755, a: 0}
-    key3: {r: 0, g: 0.4528302, b: 0.089034066, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
+    key1: {r: 0.2868588, g: 0.3962264, b: 0.28034884, a: 1}
+    key2: {r: 0, g: 0.7169812, b: 0.39334115, a: 0}
+    key3: {r: 0.013265431, g: 0.70214826, b: 0.38811597, a: 0}
+    key4: {r: 0.1816581, g: 0.34591186, b: 0.21450886, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 17862
     ctime2: 40092
-    ctime3: 65535
-    ctime4: 0
+    ctime3: 45489
+    ctime4: 65535
     ctime5: 0
     ctime6: 0
     ctime7: 0
@@ -277,41 +277,15 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: -1
-    m_NumColorKeys: 4
+    m_NumColorKeys: 5
     m_NumAlphaKeys: 2
   summermaterial: {fileID: 2100000, guid: 0a1285c9431b2a541bc1b2fa9069426a, type: 2}
-  Winterterial:
-    serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
   wintermaterial: {fileID: 2100000, guid: 5f9edeaf4b2756e4ca01df691c6f82b0, type: 2}
+  wintermaterial2: {fileID: 2100000, guid: 831d87b5cb07f984289f9fe4117f4e5d, type: 2}
   transitionDuration: 3
+  seasonDuration: 3
+  Ifrefresh: 0
+  shader: {fileID: -6465566751694194690, guid: 2bf30531e8b8c6b47a214e22b370c678, type: 3}
 --- !u!1 &174787006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1125082667
 AudioSource:
   m_ObjectHideFlags: 0
