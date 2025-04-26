@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName ="Flock/Behavior/Steered Cohesion")]
-public class SteeredCohesionBehavior :FlockBehavior
+public class SteeredCohesionBehavior :FilterFlockBehavior
 {
     Vector3 currentVelocity;
     public float agentSmoothTime = 0.5f;
@@ -15,7 +15,8 @@ public class SteeredCohesionBehavior :FlockBehavior
 
         //add all points together and average
         Vector3 cohesionMove = Vector3.zero;
-        foreach (Transform item in context)
+        List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+        foreach (Transform item in filteredContext)
         {
             cohesionMove += item.position;
         }
