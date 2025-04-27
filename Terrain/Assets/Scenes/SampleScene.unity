@@ -939,7 +939,7 @@ MonoBehaviour:
   CenterSpreadRange: 90
   AnimalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2624
   AgentPrefab: {fileID: 1848073751639617643, guid: 1bf04f68973952d4cb5937514bc94136, type: 3}
   Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
   StartingCount: 50
@@ -1094,7 +1094,7 @@ MonoBehaviour:
   CenterSpreadRange: 60
   AnimalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2624
   AgentPrefab: {fileID: 1848073751639617643, guid: 224f88fb95c610e498e7283d4758998f, type: 3}
   Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
   StartingCount: 40
@@ -1639,7 +1639,7 @@ MonoBehaviour:
   CenterSpreadRange: 80
   AnimalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2624
   AgentPrefab: {fileID: 1848073751639617643, guid: 5d51ba0ef205c834fbc52b730f53bf55, type: 3}
   Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
   StartingCount: 35
@@ -2061,7 +2061,7 @@ MonoBehaviour:
   CenterSpreadRange: 30
   AnimalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2624
   AgentPrefab: {fileID: 1848073751639617643, guid: 188f6792696b34044b50442655df0ee3, type: 3}
   Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
   StartingCount: 40
@@ -2208,14 +2208,14 @@ RectTransform:
   m_GameObject: {fileID: 1482491006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.66123104, y: 0.66123104, z: 0.66123104}
+  m_LocalScale: {x: 0.55331963, y: 0.55331963, z: 0.55331963}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 174787010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 93, y: 192}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 81.7, y: -29.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482491008
