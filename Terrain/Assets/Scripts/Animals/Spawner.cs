@@ -137,6 +137,7 @@ public class Spawner : MonoBehaviour
                 if (crops.Count ==0)
                 {
                     Debug.Log("newwwwwwwwww");
+                    AssignedHarvesters[point] = null;
                     StartCoroutine(RespawnCrops(point));
                 }
                 // add new plant
@@ -178,10 +179,9 @@ public class Spawner : MonoBehaviour
     
     private IEnumerator RespawnCrops(Transform point)
     {
-       yield return new WaitForSeconds(Random.Range (20f,35f)); 
-
         if (point != null)
         {
+            yield return new WaitForSeconds(Random.Range(20f, 35f));
             AnimalSettings AnimalType = Animals[Random.Range(0, Animals.Count)];
             int SpawnCount = Random.Range(AnimalType.MinSpawnCount, AnimalType.MaxSpawnCount);
 
@@ -192,6 +192,7 @@ public class Spawner : MonoBehaviour
                 bool CanSpawnHere = true;
                 foreach (var existingAnimal in SpawnedCrops[point])
                 {
+                    if (existingAnimal == null) continue;
                     if (Vector3.Distance(existingAnimal.transform.position, SpawnPointInBox) < MinSpawnDistance)
                     {
                         CanSpawnHere = false;
