@@ -175,6 +175,8 @@ MonoBehaviour:
   npccount: 5
   plantSpawner: {fileID: 4482262441899204167}
   seasonchange: {fileID: 132250498}
+  flock: {fileID: 1732690648}
+  thirdPersonController: {fileID: 2033813961}
 --- !u!114 &132250498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +556,10 @@ PrefabInstance:
       propertyPath: MoveSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3308650346675350136, guid: 2d10d9dfee990ce4ab3d4e12e4346a5c, type: 3}
+      propertyPath: robotPrefab
+      value: 
+      objectReference: {fileID: 6050294220259209396, guid: 7d34996aa8fa71947b3659210769a3e6, type: 3}
     - target: {fileID: 3458317383306258267, guid: 2d10d9dfee990ce4ab3d4e12e4346a5c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -596,7 +602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7961729533582654990, guid: 2d10d9dfee990ce4ab3d4e12e4346a5c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.8
+      value: 15.1
       objectReference: {fileID: 0}
     - target: {fileID: 7961729533582654990, guid: 2d10d9dfee990ce4ab3d4e12e4346a5c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -930,10 +936,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2112
   agentPrefab: {fileID: 1848073751639617643, guid: 1bf04f68973952d4cb5937514bc94136, type: 3}
   behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 50
+  startingCount: 20
   driveFactor: 10
   maxSpeed: 3
   neighbourRadius: 1.5
@@ -1083,12 +1089,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2112
   agentPrefab: {fileID: 1848073751639617643, guid: 224f88fb95c610e498e7283d4758998f, type: 3}
   behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 50
+  startingCount: 25
   driveFactor: 10
-  maxSpeed: 4
+  maxSpeed: 2
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.5
 --- !u!4 &620585305
@@ -1171,7 +1177,7 @@ Transform:
   m_GameObject: {fileID: 622976303}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 31.800003, z: -25.98076}
+  m_LocalPosition: {x: 0, y: 30.100004, z: -25.98076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1626,12 +1632,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2112
   agentPrefab: {fileID: 1848073751639617643, guid: 5d51ba0ef205c834fbc52b730f53bf55, type: 3}
   behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 50
+  startingCount: 25
   driveFactor: 10
-  maxSpeed: 8
+  maxSpeed: 5
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.5
 --- !u!4 &915137983
@@ -1757,7 +1763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1125082667
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1770,9 +1776,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 802873712e7d2544da4de3808eefe25a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1934,7 +1940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2046,12 +2052,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2112
   agentPrefab: {fileID: 1848073751639617643, guid: 188f6792696b34044b50442655df0ee3, type: 3}
   behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 50
+  startingCount: 20
   driveFactor: 10
-  maxSpeed: 5
+  maxSpeed: 3
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.5
 --- !u!4 &1224895062
@@ -2116,6 +2122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e94cf3a8f1b91d429b977f0db5c6a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ifrobot: 0
 --- !u!136 &1470028284
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2553,6 +2560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1732690647}
+  - component: {fileID: 1732690648}
   m_Layer: 0
   m_Name: Flock
   m_TagString: Untagged
@@ -2579,6 +2587,18 @@ Transform:
   - {fileID: 365848905}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1732690648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732690646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daaa504671811a14a94ea8bfeed37aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1977764642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,12 +2788,23 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 6, z: 1}
   m_Center: {x: 0, y: -1.96, z: 0}
+--- !u!114 &2033813961 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3308650346675350136, guid: 2d10d9dfee990ce4ab3d4e12e4346a5c, type: 3}
+  m_PrefabInstance: {fileID: 238885689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033813957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db1fec803763bc43a532137ad6b448d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2038951442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3016,7 +3047,7 @@ Transform:
   m_GameObject: {fileID: 6918796270995053542}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 31.800003, z: -25.98076}
+  m_LocalPosition: {x: 0, y: 30.100004, z: -25.98076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

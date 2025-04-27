@@ -23,6 +23,7 @@ public class Seasonchange : MonoBehaviour
     public float seasonDuration = 3f;// season change time;
     public bool Ifrefresh;
     public Shader shader;
+    private Coroutine changeColorCoroutine;
     public enum Season
     {
         Spring,
@@ -33,7 +34,13 @@ public class Seasonchange : MonoBehaviour
     private Season currentSeason = Season.Spring;
     public IEnumerator StartColor()
     {
+        if (changeColorCoroutine != null)
+        {
+            StopCoroutine(changeColorCoroutine);
+        }
+        currentSeason = Season.Spring;
         Ifrefresh = true;
+        //refresh
         objectsToEdit = GameObject.FindGameObjectsWithTag("Prefab")
           .Concat(GameObject.FindGameObjectsWithTag("tile"))
           .ToList();
@@ -79,13 +86,17 @@ public class Seasonchange : MonoBehaviour
             }
         }
         Ifrefresh = false;
-        yield return StartCoroutine(ChangeColor());
+        changeColorCoroutine = StartCoroutine(ChangeColor());
     }
     private IEnumerator ChangeColor()
     {
         while (true)
         {
-            if (Ifrefresh) continue ;
+            if (Ifrefresh)
+            {
+                yield return null; 
+                continue;
+            }
             switch (currentSeason)
             {
                 case Season.Spring:

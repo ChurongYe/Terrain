@@ -7,6 +7,7 @@ public class EmitLight : MonoBehaviour
     private Renderer Renderer;
     private Color OriginalColor;
     private int ColorCount=0;
+    public bool ifrobot = false;
     void Awake()
     {
         Renderer = GetComponent<Renderer>();
@@ -19,23 +20,24 @@ public class EmitLight : MonoBehaviour
 
     public void SetLightVisibility()
     {
-          gameObject.SetActive(!gameObject.activeSelf); 
+        gameObject.SetActive(!gameObject.activeSelf);
+        ifrobot = !ifrobot;
     }
-    public void SetLightColor()
-    {
-        ColorCount = (ColorCount + 1) % 2;
-        switch (ColorCount)
-        {
-            case 0:
-                Renderer.material.SetColor("_EmissionColor", OriginalColor);
-                break;
-            case 1:
-                //Renderer.material.color = Color.green;
-                Renderer.material.SetColor("_EmissionColor", Color.green);
-                break;
-            //case 2:
-            //    Renderer.material.color = Color.green;
-            //    break;
-        }
-    }
+    //public void SetLightColor()
+    //{
+    //    ColorCount = (ColorCount + 1) % 2;
+    //    switch (ColorCount)
+    //    {
+    //        case 0:
+    //            Renderer.material.SetColor("_EmissionColor", OriginalColor);
+    //            break;
+    //        case 1:
+    //            //Renderer.material.color = Color.green;
+    //            Renderer.material.SetColor("_EmissionColor", Color.green);
+    //            break;
+    //        //case 2:
+    //        //    Renderer.material.color = Color.green;
+    //        //    break;
+    //    }
+    //}
 }

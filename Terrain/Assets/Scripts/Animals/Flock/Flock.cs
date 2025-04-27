@@ -30,7 +30,7 @@ public class Flock : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    public IEnumerator AnimalSpawner()
     {
         squareMaxSpeed = maxSpeed * maxSpeed;
         squareNeighbourRadius = neighbourRadius * neighbourRadius;
@@ -38,11 +38,11 @@ public class Flock : MonoBehaviour
         for (int i = 0; i < startingCount; i++)
         {
             Vector3 randomPos = Random.insideUnitSphere * startingCount * AgentDensity;
-            randomPos.y = 10f; // 从空中往下射线
-            if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit, 20f, animalLayer))
+            randomPos.y = 100f; // 从空中往下射线
+            if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit, 200f, animalLayer))
             {
                 Vector3 spawnPos = hit.point;
-                spawnPos.y = hit.point.y + 15f;//avoid animals embeded in ground
+                spawnPos.y = hit.point.y + 1.5f;//avoid animals embeded in ground
                 //FlockAgent newAgent = Instantiate(agentPrefab, Random.insideUnitSphere * startingCount * AgentDensity, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
                 FlockAgent newAgent = Instantiate(agentPrefab, spawnPos, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
                 newAgent.name = "Agent" + i;
@@ -54,6 +54,7 @@ public class Flock : MonoBehaviour
                 Debug.LogWarning($"Agent {i} 找不到地面，跳过生成");
             }
         }
+        yield return null;
     }
 
     // Update is called once per frame
@@ -84,5 +85,17 @@ public class Flock : MonoBehaviour
             }
         }
         return context;
+    }
+    public IEnumerator RefreshAnimals()
+    {
+        // clear
+        foreach (FlockAgent agent in agents)
+        {
+            if (agent != null)
+                Destroy(agent.gameObject);
+        }
+        agents.Clear();
+        yield return null;
+
     }
 }

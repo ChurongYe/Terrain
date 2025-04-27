@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public int npccount;
     public PlantSpawner plantSpawner;
     public Seasonchange seasonchange;
+    public Animals flock;
+    public ThirdPersonController thirdPersonController;
     void Start()
     {
         Clickmouse();
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         yield return StartCoroutine(plantSpawner.Clear());
+        yield return StartCoroutine(flock.Animalclear());
+        yield return StartCoroutine(thirdPersonController.ClearRobots());
         yield return StartCoroutine(Voronoi.GenerateTexture());
         yield return StartCoroutine(Tilemap.TileGenerate());
         navMeshSurface.BuildNavMesh();
@@ -48,6 +52,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(TreeGenerate.GenerateTrees());
         yield return StartCoroutine(NPCNavigation.SpawnNPCs(npccount));
         yield return StartCoroutine(plantSpawner.PlantGenerate());
+        yield return StartCoroutine(flock.AnimalSpawner());
         yield return StartCoroutine(seasonchange.StartColor());
 
     }

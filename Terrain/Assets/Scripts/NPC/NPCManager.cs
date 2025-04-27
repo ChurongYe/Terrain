@@ -98,7 +98,8 @@ public class NPCManager : MonoBehaviour
             thiscrop.Harvested = true;
             yield return new WaitForSeconds(1f); 
         }
-        npcState = NPCState.Normal; // finish harvest
+        npcState = NPCState.Normal;
+        crops.Clear();// finish harvest
     }
     //private void CropInfor(Vector2 pos, GameObject crop)
     //{

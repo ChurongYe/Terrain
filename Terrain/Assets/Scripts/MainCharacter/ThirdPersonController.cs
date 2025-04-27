@@ -14,6 +14,9 @@ public class ThirdPersonController : MonoBehaviour
     Ray Ray;
     RaycastHit HitInfo;
     public EmitLight Light;
+    public GameObject robotPrefab;
+    public int maxRobots = 3;
+    private List<GameObject> spawnedRobots = new List<GameObject>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -44,14 +47,56 @@ public class ThirdPersonController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             Light.SetLightVisibility();
+            if(Light.ifrobot)
+            SpawnRobot();
         }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Light.SetLightColor();
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    Light.SetLightColor();
+        //}
         //if(Physics.Raycast(Ray, out HitInfo))
         //Debug.DrawLine(transform.position, HitInfo.point, Color.green);
     }
+    void SpawnRobot()
+    {
+        if (spawnedRobots.Count >= maxRobots)
+        {
+            Debug.Log("Maximum robots reached!");
+            return;
+        }
+
+        if (robotPrefab != null )
+        {
+            Vector3 rayOrigin = transform .position;
+            Ray ray = new Ray(rayOrigin, Vector3.down);
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100f))
+            {
+                Vector3 spawnPosition = hitInfo.point + Vector3.up * 3f;
+                GameObject newRobot = Instantiate(robotPrefab, spawnPosition, Quaternion.identity);
+                spawnedRobots.Add(newRobot);
+            }
+            else
+            {
+                Debug.LogWarning("No ground found below player to spawn robot!");
+            }
+        }
+    }
+
+    public IEnumerator ClearRobots()
+    {
+        foreach (GameObject robot in spawnedRobots)
+        {
+            if (robot != null)
+            {
+                Destroy(robot);
+            }
+        }
+        spawnedRobots.Clear();
+        yield return null;
+    }
+}
+
     //void ChangeRayColor()
     //{
     //    if (Input.GetKeyDown(KeyCode.K))
@@ -61,4 +106,4 @@ public class ThirdPersonController : MonoBehaviour
 
     //}
 
-}
+

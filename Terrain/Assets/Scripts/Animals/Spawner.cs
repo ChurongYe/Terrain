@@ -86,7 +86,7 @@ public class Spawner : MonoBehaviour
         }
         yield return null;
     }
-    protected virtual IEnumerator SpawnAnimals()
+    protected virtual IEnumerator SpawnAnimals()//actually plant
     {
         foreach (var point in Points)
         {
@@ -134,6 +134,12 @@ public class Spawner : MonoBehaviour
                 Transform point = kvp.Key;
                 List<GameObject> crops = kvp.Value;
 
+                if (crops.Count ==0)
+                {
+                    Debug.Log("newwwwwwwwww");
+                    StartCoroutine(RespawnCrops(point));
+                }
+                // add new plant
                 if (crops.Count > 0 && AssignedHarvesters[point] == null) 
                 {
                     bool allMature = true;
@@ -169,6 +175,40 @@ public class Spawner : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
     }
+    
+    private IEnumerator RespawnCrops(Transform point)
+    {
+       yield return new WaitForSeconds(Random.Range (20f,35f)); 
+
+        if (point != null)
+        {
+            AnimalSettings AnimalType = Animals[Random.Range(0, Animals.Count)];
+            int SpawnCount = Random.Range(AnimalType.MinSpawnCount, AnimalType.MaxSpawnCount);
+
+            for (int i = 0; i < SpawnCount; i++)
+            {
+                Vector3 SpawnPointInBox = point.position + new Vector3(Random.Range(-SpawnBoxX, SpawnBoxX), 0, Random.Range(-SpawnBoxZ, SpawnBoxZ));
+                SpawnPointInBox.y = CheckLandHeight(SpawnPointInBox) + Upset;
+                bool CanSpawnHere = true;
+                foreach (var existingAnimal in SpawnedCrops[point])
+                {
+                    if (Vector3.Distance(existingAnimal.transform.position, SpawnPointInBox) < MinSpawnDistance)
+                    {
+                        CanSpawnHere = false;
+                        break;
+                    }
+                }
+
+                if (CanSpawnHere)
+                {
+                    Quaternion Rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                    GameObject Crop = Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
+                    SpawnedCrops[point].Add(Crop);
+                }
+            }
+        }
+        yield return null;
+    }
     private IEnumerator WaitForAvailableNPC(Transform point)
     {
         while (FindNearestNormalNPC() == null)
@@ -184,7 +224,6 @@ public class Spawner : MonoBehaviour
     {
         if (!AssignedHarvesters.ContainsKey(point))
         {
-            Debug.LogWarning($"[Spawner] AssignedHarvesters 中找不到 {point.name}，无法分配收割！");
             return;
         }
 
