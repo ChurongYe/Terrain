@@ -22,11 +22,13 @@ public class Spawner : MonoBehaviour
     //public int LandMask;
     public LayerMask LandMask;
     public float RayDistance = 10f;
+    public float Upset = 1f;
+    public float MinSpawnDistance;
     protected List<Transform> Points = new List<Transform>();
     private Dictionary<Transform, List<GameObject>> SpawnedCrops = new(); // Crops of Point
     private Dictionary<Transform, NPCManager> AssignedHarvesters = new(); // NPC of Point
     private List<Vector3> diPositions = new List<Vector3>();
-    public float Upset = 1f;
+
     void Start()
     {
         StartCoroutine(CheckForMatureCrops());
@@ -95,14 +97,30 @@ public class Spawner : MonoBehaviour
             for (int i = 0; i < SpawnCount; i++)
             {
                 Vector3 SpawnPointInBox = point.position + new Vector3(Random.Range(-SpawnBoxX, SpawnBoxX), 0, Random.Range(-SpawnBoxZ, SpawnBoxZ));
-                if (!Physics.CheckBox(point.position, new Vector3(SpawnBoxX, Mathf.Min(SpawnBoxX, SpawnBoxZ), SpawnBoxZ)*0.5f, Quaternion.identity, CreatureMask))//avoid overlap in spawner box
+                SpawnPointInBox.y = CheckLandHeight(SpawnPointInBox) + Upset;
+                bool CanSpawnHere = true;
+                foreach (var existingAnimal in SpawnedCrops[point])
                 {
-                    SpawnPointInBox.y = CheckLandHeight(SpawnPointInBox)+ Upset;
+                    if (Vector3.Distance(existingAnimal.transform.position, SpawnPointInBox) < MinSpawnDistance)
+                    {
+                        CanSpawnHere = false;
+                        break;
+                    }
+                }    
+                //if (!Physics.CheckBox(point.position, new Vector3(SpawnBoxX, Mathf.Min(SpawnBoxX, SpawnBoxZ), SpawnBoxZ)*0.5f, Quaternion.identity, CreatureMask))//avoid overlap in spawner box
+                //{
+                //    SpawnPointInBox.y = CheckLandHeight(SpawnPointInBox)+ Upset;
+                //    Quaternion Rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                //    //Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
+                //    GameObject crop = Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
+                //    SpawnedCrops[point].Add(crop); 
+                
+                if (CanSpawnHere)
+                {
                     Quaternion Rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
-                    //Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
-                    GameObject crop = Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
-                    SpawnedCrops[point].Add(crop); 
-                }   
+                    GameObject Crop = Instantiate(AnimalType.AnimalPrefab, SpawnPointInBox, Rotation, point);
+                    SpawnedCrops[point].Add(Crop);
+                }
             }
         }
         yield return null;
