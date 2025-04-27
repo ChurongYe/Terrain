@@ -40,6 +40,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2ffc4615754565a4b8918d1ec584906c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ffc4615754565a4b8918d1ec584906c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ffc4615754565a4b8918d1ec584906c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ffc4615754565a4b8918d1ec584906c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.7350075
       objectReference: {fileID: 0}
@@ -128,9 +140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMature: 0
   Harvested: 0
-  SizeMultipler: 2
+  SizeMultipler: 1.5
   PositionMultipler: 0.1
   HarvestPoint: {fileID: 3434024448869872598}
+  SuperVegProbability: 0
 --- !u!65 &9217112154938612585
 BoxCollider:
   m_ObjectHideFlags: 0

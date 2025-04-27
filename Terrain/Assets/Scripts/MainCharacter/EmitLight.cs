@@ -10,7 +10,7 @@ public class EmitLight : MonoBehaviour
     void Awake()
     {
         Renderer = GetComponent<Renderer>();
-        OriginalColor = Renderer.material.color;
+        OriginalColor = Renderer.material.GetColor("_EmissionColor");
     }
     void Start()
     {
@@ -23,18 +23,19 @@ public class EmitLight : MonoBehaviour
     }
     public void SetLightColor()
     {
-        ColorCount = (ColorCount + 1) % 3;
+        ColorCount = (ColorCount + 1) % 2;
         switch (ColorCount)
         {
             case 0:
-                Renderer.material.color = OriginalColor;
+                Renderer.material.SetColor("_EmissionColor", OriginalColor);
                 break;
             case 1:
-                Renderer.material.color = Color.red;
+                //Renderer.material.color = Color.green;
+                Renderer.material.SetColor("_EmissionColor", Color.green);
                 break;
-            case 2:
-                Renderer.material.color = Color.yellow;
-                break;
+            //case 2:
+            //    Renderer.material.color = Color.green;
+            //    break;
         }
     }
 }
