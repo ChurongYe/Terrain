@@ -82,7 +82,8 @@ public class NPCManager : MonoBehaviour
     }
     private IEnumerator HarvestCrops(List<GameObject> crops)
     {
-        foreach (GameObject crop in crops)
+        List<GameObject> cropsCopy = new List<GameObject>(crops);
+        foreach (GameObject crop in cropsCopy)
         {
             if (crop == null) continue;
             Crop thiscrop = crop.GetComponent<Crop>();
@@ -96,11 +97,15 @@ public class NPCManager : MonoBehaviour
             }
             Debug.Log($"NPC {name} harvesting crop at {targetPos}");
             thiscrop.Harvested = true;
+            Destroy(crop);
             yield return new WaitForSeconds(1f); 
         }
         npcState = NPCState.Normal;
-        crops.Clear();// finish harvest
+        Debug.Log("eeeee");
+        crops.Clear();
+        // finish harvest
     }
+
     //private void CropInfor(Vector2 pos, GameObject crop)
     //{
     //    cropInfor = (pos,crop);
