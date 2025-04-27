@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class FilterFlockBehavior :FlockBehavior
 {
-    public ContextFilter filter;
+    public ContextFilter Filter;
 }

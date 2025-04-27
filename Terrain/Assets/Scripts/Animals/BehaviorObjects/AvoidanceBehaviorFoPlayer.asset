@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055ad9d90beeb59409ff8be8de8f90b4, type: 3}
   m_Name: AvoidanceBehaviorFoPlayer
   m_EditorClassIdentifier: 
-  filter: {fileID: 11400000, guid: 140ded5f8673768429dfc2bcb2c308c9, type: 2}
-  AvoidObstacleRadius: 150
+  Filter: {fileID: 11400000, guid: 140ded5f8673768429dfc2bcb2c308c9, type: 2}
+  AvoidObstacleRadius: 100

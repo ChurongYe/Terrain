@@ -935,16 +935,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a299a3b9333e6b34a9ba9cba4145cbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalLayer:
+  CenterCount: 1
+  CenterSpreadRange: 90
+  AnimalLayer:
     serializedVersion: 2
-    m_Bits: 2112
-  agentPrefab: {fileID: 1848073751639617643, guid: 1bf04f68973952d4cb5937514bc94136, type: 3}
-  behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 20
-  driveFactor: 10
-  maxSpeed: 3
-  neighbourRadius: 1.5
-  avoidanceRadiusMultiplier: 0.5
+    m_Bits: 64
+  AgentPrefab: {fileID: 1848073751639617643, guid: 1bf04f68973952d4cb5937514bc94136, type: 3}
+  Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
+  StartingCount: 50
+  DriveFactor: 10
+  MaxSpeed: 3
+  NeighbourRadius: 2
+  AvoidanceRadiusMultiplier: 0.5
 --- !u!4 &365848905
 Transform:
   m_ObjectHideFlags: 0
@@ -1088,16 +1090,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a299a3b9333e6b34a9ba9cba4145cbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalLayer:
+  CenterCount: 1
+  CenterSpreadRange: 60
+  AnimalLayer:
     serializedVersion: 2
-    m_Bits: 2112
-  agentPrefab: {fileID: 1848073751639617643, guid: 224f88fb95c610e498e7283d4758998f, type: 3}
-  behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 25
-  driveFactor: 10
-  maxSpeed: 2
-  neighbourRadius: 1.5
-  avoidanceRadiusMultiplier: 0.5
+    m_Bits: 64
+  AgentPrefab: {fileID: 1848073751639617643, guid: 224f88fb95c610e498e7283d4758998f, type: 3}
+  Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
+  StartingCount: 40
+  DriveFactor: 10
+  MaxSpeed: 4
+  NeighbourRadius: 2
+  AvoidanceRadiusMultiplier: 0.5
 --- !u!4 &620585305
 Transform:
   m_ObjectHideFlags: 0
@@ -1631,16 +1635,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a299a3b9333e6b34a9ba9cba4145cbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalLayer:
+  CenterCount: 1
+  CenterSpreadRange: 80
+  AnimalLayer:
     serializedVersion: 2
-    m_Bits: 2112
-  agentPrefab: {fileID: 1848073751639617643, guid: 5d51ba0ef205c834fbc52b730f53bf55, type: 3}
-  behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 25
-  driveFactor: 10
-  maxSpeed: 5
-  neighbourRadius: 1.5
-  avoidanceRadiusMultiplier: 0.5
+    m_Bits: 64
+  AgentPrefab: {fileID: 1848073751639617643, guid: 5d51ba0ef205c834fbc52b730f53bf55, type: 3}
+  Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
+  StartingCount: 35
+  DriveFactor: 10
+  MaxSpeed: 7
+  NeighbourRadius: 2
+  AvoidanceRadiusMultiplier: 0.5
 --- !u!4 &915137983
 Transform:
   m_ObjectHideFlags: 0
@@ -2051,16 +2057,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a299a3b9333e6b34a9ba9cba4145cbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalLayer:
+  CenterCount: 2
+  CenterSpreadRange: 30
+  AnimalLayer:
     serializedVersion: 2
-    m_Bits: 2112
-  agentPrefab: {fileID: 1848073751639617643, guid: 188f6792696b34044b50442655df0ee3, type: 3}
-  behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
-  startingCount: 20
-  driveFactor: 10
-  maxSpeed: 3
-  neighbourRadius: 1.5
-  avoidanceRadiusMultiplier: 0.5
+    m_Bits: 64
+  AgentPrefab: {fileID: 1848073751639617643, guid: 188f6792696b34044b50442655df0ee3, type: 3}
+  Behavior: {fileID: 11400000, guid: 9cba8dbbd7f05674295f5ab92cce9120, type: 2}
+  StartingCount: 40
+  DriveFactor: 10
+  MaxSpeed: 5
+  NeighbourRadius: 2
+  AvoidanceRadiusMultiplier: 0.5
 --- !u!4 &1224895062
 Transform:
   m_ObjectHideFlags: 0
@@ -2087,7 +2095,6 @@ GameObject:
   - component: {fileID: 1470028282}
   - component: {fileID: 1470028286}
   - component: {fileID: 1470028285}
-  - component: {fileID: 1470028284}
   - component: {fileID: 1470028283}
   m_Layer: 14
   m_Name: Cylinder
@@ -2105,8 +2112,8 @@ Transform:
   m_GameObject: {fileID: 1470028281}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.14, z: 0}
-  m_LocalScale: {x: 0.3458356, y: 4.3448005, z: 0.3458356}
+  m_LocalPosition: {x: 0, y: -5.77, z: 0}
+  m_LocalScale: {x: 0.3458356, y: 5.965411, z: 0.3458356}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1121495299}
@@ -2124,29 +2131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ifrobot: 0
---- !u!136 &1470028284
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470028281}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1470028285
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2927,8 +2911,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 6, z: 1}
-  m_Center: {x: 0, y: -1.96, z: 0}
+  m_Size: {x: 1, y: 12.82, z: 1}
+  m_Center: {x: 0, y: -5.86, z: 0}
 --- !u!114 &2033813961 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3308650346675350136, guid: 2d10d9dfee990ce4ab3d4e12e4346a5c, type: 3}

@@ -21,7 +21,7 @@ public abstract class Plant : MonoBehaviour
     protected virtual void Start()
     {
         StartPosition= transform.position;
-        MatureTime = Random.Range(3f, 5f);//
+        MatureTime = Random.Range(10f,35f);//
         Timer = 0f;//
         OriginalScale = transform.localScale;
     }

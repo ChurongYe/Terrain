@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
-    public LayerMask animalLayer;
-    public FlockAgent agentPrefab;
+    public int CenterCount = 4;
+    public float CenterSpreadRange = 60f;
+    private List<Transform> SpawnCenters = new List<Transform>();
+    public LayerMask AnimalLayer;
+    public FlockAgent AgentPrefab;
     List<FlockAgent> agents = new List<FlockAgent>();
-    public FlockBehavior behavior;
+    public FlockBehavior Behavior;
     [Range(10, 500)]
-    public int startingCount = 50;
+    public int StartingCount = 50;
     const float AgentDensity = 0.08f;
     [Range(1f, 100f)]
-    public float driveFactor = 10f; //make the movement more obvious
+    public float DriveFactor = 10f; //make the movement more obvious
     [Range(1f, 100f)]
-    public float maxSpeed = 5f;//limit the speed
+    public float MaxSpeed = 5f;//limit the speed
     [Range(1f, 10f)]
-    public float neighbourRadius = 1.5f;
+    public float NeighbourRadius = 1.5f;
     [Range(0f, 1f)]
-    public float avoidanceRadiusMultiplier = 0.5f;
+    public float AvoidanceRadiusMultiplier = 0.5f;
     float squareMaxSpeed;
     float squareNeighbourRadius;
     float squareAvoidanceRadius;
@@ -32,21 +35,55 @@ public class Flock : MonoBehaviour
     // Start is called before the first frame update
     public IEnumerator AnimalSpawner()
     {
-        squareMaxSpeed = maxSpeed * maxSpeed;
-        squareNeighbourRadius = neighbourRadius * neighbourRadius;
-        squareAvoidanceRadius = squareNeighbourRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
-        for (int i = 0; i < startingCount; i++)
+        squareMaxSpeed = MaxSpeed * MaxSpeed;
+        squareNeighbourRadius = NeighbourRadius * NeighbourRadius;
+        squareAvoidanceRadius = squareNeighbourRadius * AvoidanceRadiusMultiplier * AvoidanceRadiusMultiplier;
+        SpawnCenters.Clear(); // 先清空旧的
+        for (int c = 0; c < CenterCount; c++)
         {
-            Vector3 randomPos = Random.insideUnitSphere * startingCount * AgentDensity;
-            randomPos.y = 100f; // 从空中往下射线
-            if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit, 200f, animalLayer))
+            Vector3 centerPos = transform.position + new Vector3(
+                Random.Range(-CenterSpreadRange, CenterSpreadRange),
+                100f, // 空中射线检测
+                Random.Range(-CenterSpreadRange, CenterSpreadRange)
+            );
+
+            if (Physics.Raycast(centerPos, Vector3.down, out RaycastHit centerHit, 200f, AnimalLayer))
+            {
+                GameObject centerObj = new GameObject("AutoCenter_" + c);
+                centerObj.transform.position = centerHit.point;
+                centerObj.transform.SetParent(transform); // 可以不设父物体，自己决定
+                SpawnCenters.Add(centerObj.transform);
+            }
+            else
+            {
+                Debug.LogWarning($"Center {c} 找不到地面，跳过");
+            }
+        }
+
+        // 然后就是用生成好的 SpawnCenters 来正常生成动物了
+        for (int i = 0; i < StartingCount; i++)
+        {
+            if (SpawnCenters.Count == 0)
+            {
+                Debug.LogWarning("没有可用的生成中心点！");
+                yield break;
+            }
+
+            Transform center = SpawnCenters[Random.Range(0, SpawnCenters.Count)];
+            Vector3 randomOffset = Random.insideUnitSphere * StartingCount * AgentDensity;
+            randomOffset.y = 0f;
+
+            Vector3 randomPos = center.position + randomOffset;
+            randomPos.y = 100f;
+
+            if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit, 200f, AnimalLayer))
             {
                 Vector3 spawnPos = hit.point;
-                spawnPos.y = hit.point.y + 1.5f;//avoid animals embeded in ground
-                //FlockAgent newAgent = Instantiate(agentPrefab, Random.insideUnitSphere * startingCount * AgentDensity, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
-                FlockAgent newAgent = Instantiate(agentPrefab, spawnPos, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
+                spawnPos.y += 1.5f;
+
+                FlockAgent newAgent = Instantiate(AgentPrefab, spawnPos, Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)), transform);
                 newAgent.name = "Agent" + i;
-                newAgent.Initialize(this);//
+                newAgent.Initialize(this);
                 agents.Add(newAgent);
             }
             else
@@ -54,6 +91,7 @@ public class Flock : MonoBehaviour
                 Debug.LogWarning($"Agent {i} 找不到地面，跳过生成");
             }
         }
+
         yield return null;
     }
 
@@ -63,11 +101,11 @@ public class Flock : MonoBehaviour
         foreach (FlockAgent agent in agents)
         {
             List<Transform> context = GetNearbyObjects(agent);
-            Vector3 move = behavior.CalculateMove(agent, context, this);
-            move *= driveFactor;
+            Vector3 move = Behavior.CalculateMove(agent, context, this);
+            move *= DriveFactor;
             if (move.sqrMagnitude > squareMaxSpeed)
             {
-                move = move.normalized * maxSpeed;
+                move = move.normalized * MaxSpeed;
             }
             move.y = 0;//
             agent.Move(move);
@@ -76,7 +114,7 @@ public class Flock : MonoBehaviour
     List<Transform> GetNearbyObjects(FlockAgent agent)
     {
         List<Transform> context = new List<Transform>();
-        Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, neighbourRadius);
+        Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, NeighbourRadius);
         foreach (Collider collider in contextColliders)
         {
             if (collider != agent.AgentCollider)

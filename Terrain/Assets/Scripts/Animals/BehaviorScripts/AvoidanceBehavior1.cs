@@ -14,7 +14,7 @@ public class AvoidanceBehaviorForObstacle :FilterFlockBehavior
         //add all points together and average
         Vector3 AvoidanceMove = Vector3.zero;
         int Avoid = 0;
-        List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+        List<Transform> filteredContext = (Filter == null) ? context : Filter.Filter(agent, context);
         foreach (Transform item in filteredContext)
         {
             if (Vector3.SqrMagnitude(item.position - agent.transform.position) < AvoidObstacleRadius)

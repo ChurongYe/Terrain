@@ -12,7 +12,7 @@ public class AlignmentBehavior : FilterFlockBehavior
             return agent.transform.forward;
         //add all points together and average
         Vector3 alignmentMove = Vector3.zero;
-        List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+        List<Transform> filteredContext = (Filter == null) ? context : Filter.Filter(agent, context);
         foreach (Transform item in filteredContext)
         {
             alignmentMove += item.transform.forward;

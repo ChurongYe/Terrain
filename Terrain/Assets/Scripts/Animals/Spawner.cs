@@ -137,6 +137,7 @@ public class Spawner : MonoBehaviour
                 if (crops.Count ==0)
                 {
                     Debug.Log("newwwwwwwwww");
+                    AssignedHarvesters[point] = null;
                     StartCoroutine(RespawnCrops(point));
                 }
                 // add new plant

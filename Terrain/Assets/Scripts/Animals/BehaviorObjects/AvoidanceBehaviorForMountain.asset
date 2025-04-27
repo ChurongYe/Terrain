@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055ad9d90beeb59409ff8be8de8f90b4, type: 3}
   m_Name: AvoidanceBehaviorForMountain
   m_EditorClassIdentifier: 
-  filter: {fileID: 11400000, guid: b6a4399126d23e34e9615b62375a566b, type: 2}
-  AvoidObstacleRadius: 800
+  Filter: {fileID: 11400000, guid: b6a4399126d23e34e9615b62375a566b, type: 2}
+  AvoidObstacleRadius: 300
