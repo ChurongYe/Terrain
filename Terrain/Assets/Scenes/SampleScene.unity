@@ -284,8 +284,8 @@ MonoBehaviour:
   summermaterial: {fileID: 2100000, guid: 0a1285c9431b2a541bc1b2fa9069426a, type: 2}
   wintermaterial: {fileID: 2100000, guid: 5f9edeaf4b2756e4ca01df691c6f82b0, type: 2}
   wintermaterial2: {fileID: 2100000, guid: 831d87b5cb07f984289f9fe4117f4e5d, type: 2}
-  transitionDuration: 3
-  seasonDuration: 3
+  transitionDuration: 4
+  seasonDuration: 6
   Ifrefresh: 0
   shader: {fileID: -6465566751694194690, guid: 2bf30531e8b8c6b47a214e22b370c678, type: 3}
 --- !u!1 &174787006

@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+
 
 
 public class Seasonchange : MonoBehaviour
